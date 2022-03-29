@@ -2,6 +2,7 @@ package ru.sli.stack.service;
 
 import org.springframework.stereotype.Service;
 import ru.sli.stack.repository.QuestionRepository;
+import ru.sli.stack.repository.Questions;
 
 import java.util.List;
 
@@ -13,7 +14,11 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public List<String> findAll() {
+    public List<List<String>> findAll() {
         return questionRepository.findAll();
+    }
+
+    public List<Questions> retQuestions() {
+        return questionRepository.retQuestions();
     }
 }

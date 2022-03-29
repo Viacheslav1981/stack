@@ -2,6 +2,7 @@ package ru.sli.stack.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.sli.stack.repository.Questions;
 import ru.sli.stack.service.QuestionService;
 
 import java.util.List;
@@ -15,7 +16,12 @@ public class HelloController {
     }
 
     @GetMapping
-    public List<String> testStr() {
+    public List<List<String>> testStr() {
         return questionService.findAll();
+    }
+
+    @GetMapping("/questions")
+    public List<Questions> testQuestion() {
+        return questionService.retQuestions();
     }
 }
