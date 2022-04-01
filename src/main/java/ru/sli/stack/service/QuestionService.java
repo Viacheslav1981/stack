@@ -21,4 +21,8 @@ public class QuestionService {
     public List<Questions> retQuestions() {
         return questionRepository.retQuestions();
     }
+
+    public void tableUpdate(int id, String title, String description) {
+        questionRepository.tableUpdate(id, title, description);
+    }
 }

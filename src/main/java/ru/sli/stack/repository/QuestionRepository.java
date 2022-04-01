@@ -11,6 +11,19 @@ import java.util.List;
 
 @Component
 public class QuestionRepository {
+    private DBworking dBworking;
+
+    public QuestionRepository(DBworking dBworking) {
+        this.dBworking = dBworking;
+    }
+
+    public void tableUpdate(int id, String title, String description) {
+        try {
+            dBworking.getConnection().executeUpdate("update questions set title = " + title + ", description = " + description + ", modifiedat = CURRENT_TIMESTAMP where id = " + id);
+        } catch (Exception e) {
+
+        }
+    }
 
     public List<Questions> retQuestions() {
 

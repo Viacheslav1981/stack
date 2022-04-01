@@ -24,4 +24,13 @@ public class HelloController {
     public List<Questions> testQuestion() {
         return questionService.retQuestions();
     }
+
+    @GetMapping("/update")
+    public void tableUpdate() {
+        int id = 10;
+        String title = "'пример для update6'";
+        String description = "'update6 прошел как надо'";
+        questionService.tableUpdate(id, title, description);
+
+    }
 }
