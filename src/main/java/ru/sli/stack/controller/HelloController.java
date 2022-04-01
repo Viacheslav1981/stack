@@ -28,9 +28,25 @@ public class HelloController {
     @GetMapping("/update")
     public void tableUpdate() {
         int id = 10;
-        String title = "'пример для update6'";
-        String description = "'update6 прошел как надо'";
+        String title = "'пример для update7'";
+        String description = "'update7 прошел как надо'";
         questionService.tableUpdate(id, title, description);
 
     }
+
+    @GetMapping("/insert")
+    public void tableInsert() {
+        String title = "'пример для insert1'";
+        String description = "'insert1 прошел успешно'";
+        questionService.tableInsert(title, description);
+
+    }
+
+    @GetMapping("/delete")
+    public void tableDelete() {
+        int id = 17;
+        questionService.tableDelete(id);
+
+    }
+
 }

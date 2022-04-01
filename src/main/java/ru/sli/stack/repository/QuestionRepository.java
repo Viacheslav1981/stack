@@ -25,6 +25,25 @@ public class QuestionRepository {
         }
     }
 
+    public void tableInsert(String title, String description) {
+        try {
+            dBworking.getConnection().executeUpdate("insert into questions (title, description, createdat) values (" + title + ", " + description + " , CURRENT_TIMESTAMP)");
+            //dBworking.getConnection().executeUpdate("insert into questions (title, description, createdat) values ('test insert', 'description insert' , CURRENT_TIMESTAMP)");
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void tableDelete(int id) {
+        try {
+            dBworking.getConnection().executeUpdate("delete from questions where id = " + id);
+        } catch (Exception e) {
+
+        }
+    }
+
+
+
     public List<Questions> retQuestions() {
 
         List<Questions> questionsList = new ArrayList<>();

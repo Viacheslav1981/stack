@@ -25,4 +25,12 @@ public class QuestionService {
     public void tableUpdate(int id, String title, String description) {
         questionRepository.tableUpdate(id, title, description);
     }
+
+    public void tableInsert(String title, String description) {
+        questionRepository.tableInsert(title, description);
+    }
+
+    public void tableDelete(int id) {
+        questionRepository.tableDelete(id);
+    }
 }
