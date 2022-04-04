@@ -2,7 +2,7 @@ package ru.sli.stack.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.sli.stack.repository.Questions;
+import ru.sli.stack.repository.Question;
 import ru.sli.stack.service.QuestionService;
 
 import java.util.List;
@@ -21,32 +21,26 @@ public class HelloController {
     }
 
     @GetMapping("/questions")
-    public List<Questions> testQuestion() {
+    public List<Question> testQuestion() {
         return questionService.retQuestions();
     }
 
     @GetMapping("/update")
-    public void tableUpdate() {
-        int id = 10;
-        String title = "'пример для update7'";
-        String description = "'update7 прошел как надо'";
-        questionService.tableUpdate(id, title, description);
+    public Question tableUpdate() {
+        return questionService.tableUpdate();
 
     }
 
     @GetMapping("/insert")
-    public void tableInsert() {
-        String title = "'пример для insert1'";
-        String description = "'insert1 прошел успешно'";
-        questionService.tableInsert(title, description);
+    public Question tableInsert() {
+        return questionService.tableInsert();
 
     }
 
     @GetMapping("/delete")
     public void tableDelete() {
-        int id = 17;
-        questionService.tableDelete(id);
-
+        questionService.tableDelete();
     }
+
 
 }

@@ -1,12 +1,14 @@
 package ru.sli.stack.repository;
 
-public class Questions {
+public class Question {
 
     public String title;
     public String description;
+    public int id;
 
-    public Questions(String title, String description) {
+    public Question(String title, String description) {
         this.title = title;
         this.description = description;
     }
+
 }

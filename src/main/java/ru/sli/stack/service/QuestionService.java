@@ -1,8 +1,8 @@
 package ru.sli.stack.service;
 
 import org.springframework.stereotype.Service;
+import ru.sli.stack.repository.Question;
 import ru.sli.stack.repository.QuestionRepository;
-import ru.sli.stack.repository.Questions;
 
 import java.util.List;
 
@@ -18,19 +18,21 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
-    public List<Questions> retQuestions() {
+    public List<Question> retQuestions() {
         return questionRepository.retQuestions();
     }
 
-    public void tableUpdate(int id, String title, String description) {
-        questionRepository.tableUpdate(id, title, description);
+    public Question tableUpdate() {
+        return questionRepository.tableUpdate();
     }
 
-    public void tableInsert(String title, String description) {
-        questionRepository.tableInsert(title, description);
+    public Question tableInsert() {
+        return questionRepository.tableInsert();
     }
 
-    public void tableDelete(int id) {
-        questionRepository.tableDelete(id);
+    public void tableDelete() {
+        questionRepository.tableDelete();
     }
+
+
 }
