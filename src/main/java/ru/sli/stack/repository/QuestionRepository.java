@@ -9,13 +9,14 @@ import java.util.List;
 @Component
 public class QuestionRepository {
     private DBworking dBworking;
-    int id = 10;
+    int id = 18;
     String title = "пример вставки строки";
     String description = "проверка возврата вставленной строки на front";
     String update = "update questions set title = 'проверка апдейта3', description = 'проходим апдейт3', modifiedat = CURRENT_TIMESTAMP where id = " + id;
     String insert = "insert into questions (title, description, createdat) values ('пример вставки строки1', 'вставка1 прошла' , CURRENT_TIMESTAMP)";
     String delete = "delete from questions where id = " + id;
     String select = "select * from questions where id= " + id;
+    String selectAll = "select * from questions";
     private Question question;
 
     public QuestionRepository(DBworking dBworking) {
@@ -68,7 +69,7 @@ public class QuestionRepository {
 
     public Question getById() {
         try {
-            ResultSet resultSet = dBworking.getById(select);
+            ResultSet resultSet = dBworking.tableSelect(select);
 
             while (resultSet.next()) {
                 String titleIn = resultSet.getString("title");
@@ -84,9 +85,8 @@ public class QuestionRepository {
 
     public List<List<String>> findAll() {
         List<List<String>> listAll = new ArrayList<>();
-
         try {
-            ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions");
+            ResultSet resultSet = dBworking.tableSelect(selectAll);
 
             while (resultSet.next()) {
 
@@ -112,7 +112,7 @@ public class QuestionRepository {
         List<Question> questionList = new ArrayList<>();
 
         try {
-            ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions");
+            ResultSet resultSet = dBworking.tableSelect(selectAll);
 
             while (resultSet.next()) {
 
