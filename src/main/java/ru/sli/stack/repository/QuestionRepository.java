@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class QuestionRepository {
     private DBworking dBworking;
-    int id = 20;
+    int id = 10;
     String title = "пример вставки строки";
     String description = "проверка возврата вставленной строки на front";
     String update = "update questions set title = 'проверка апдейта3', description = 'проходим апдейт3', modifiedat = CURRENT_TIMESTAMP where id = " + id;
@@ -66,27 +66,20 @@ public class QuestionRepository {
         }
     }
 
-    public List<Question> retQuestions() {
-
-        List<Question> questionList = new ArrayList<>();
-
+    public Question getById() {
         try {
-            ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions");
+            ResultSet resultSet = dBworking.getById(select);
 
             while (resultSet.next()) {
-
-                String title = resultSet.getString("title");
-                String description = resultSet.getString("description");
-                Question question = new Question(title, description);
-                questionList.add(question);
-
+                String titleIn = resultSet.getString("title");
+                String descriptionIn = resultSet.getString("description");
+                question = new Question(titleIn, descriptionIn);
             }
 
         } catch (Exception e) {
 
         }
-
-        return questionList;
+        return question;
     }
 
     public List<List<String>> findAll() {
@@ -113,4 +106,29 @@ public class QuestionRepository {
 
         return listAll;
     }
+
+    public List<Question> retQuestions() {
+
+        List<Question> questionList = new ArrayList<>();
+
+        try {
+            ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions");
+
+            while (resultSet.next()) {
+
+                String title = resultSet.getString("title");
+                String description = resultSet.getString("description");
+                Question question = new Question(title, description);
+                questionList.add(question);
+
+            }
+
+        } catch (Exception e) {
+
+        }
+
+        return questionList;
+    }
+
+
 }

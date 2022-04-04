@@ -42,5 +42,12 @@ public class HelloController {
         questionService.tableDelete();
     }
 
+    @GetMapping("/get")
+    public Question getById() {
+        return questionService.getById();
+
+    }
+
+
 
 }

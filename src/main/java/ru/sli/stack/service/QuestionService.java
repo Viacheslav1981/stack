@@ -34,5 +34,9 @@ public class QuestionService {
         questionRepository.tableDelete();
     }
 
+    public Question getById() {
+        return questionRepository.getById();
+    }
+
 
 }
