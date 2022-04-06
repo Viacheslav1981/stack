@@ -9,11 +9,11 @@ import java.util.List;
 @Component
 public class QuestionRepository {
     private DBworking dBworking;
-    int id = 18;
+    int id = 27;
     String title = "пример вставки строки";
     String description = "проверка возврата вставленной строки на front";
-    String update = "update questions set title = 'проверка апдейта3', description = 'проходим апдейт3', modifiedat = CURRENT_TIMESTAMP where id = " + id;
-    String insert = "insert into questions (title, description, createdat) values ('пример вставки строки1', 'вставка1 прошла' , CURRENT_TIMESTAMP)";
+    String update = "update questions set title = 'проверка апдейта1', description = 'проходим апдейт номер 1', modifiedat = CURRENT_TIMESTAMP where id = " + id;
+    String insert = "insert into questions (title, description, createdat) values ('пример вставки строки99', 'вставка99 прошла' , CURRENT_TIMESTAMP)";
     String delete = "delete from questions where id = " + id;
     String select = "select * from questions where id= " + id;
     String selectAll = "select * from questions";
@@ -44,7 +44,7 @@ public class QuestionRepository {
     public Question tableInsert() {
         try {
             dBworking.tableInsert(insert);
-            ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions where title='пример вставки строки1'");
+            ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions where title='пример вставки строки123'");
 
             while (resultSet.next()) {
                 String titleIn = resultSet.getString("title");
