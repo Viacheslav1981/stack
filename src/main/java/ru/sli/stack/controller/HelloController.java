@@ -1,6 +1,7 @@
 package ru.sli.stack.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.service.QuestionService;
@@ -25,26 +26,26 @@ public class HelloController {
         return questionService.retQuestions();
     }
 
-    @GetMapping("/update")
-    public Question tableUpdate() {
-        return questionService.tableUpdate();
+    @GetMapping("/update/id={id}&title={title}&description={description}")
+    public Question tableUpdate(@PathVariable int id, @PathVariable String title, @PathVariable String description) {
+        return questionService.tableUpdate(id, title, description);
 
     }
 
-    @GetMapping("/insert")
-    public Question tableInsert() {
-        return questionService.tableInsert();
+    @GetMapping("/insert/title={title}&description={description}")
+    public Question tableInsert(@PathVariable String title, @PathVariable String description) {
+        return questionService.tableInsert(title, description);
 
     }
 
-    @GetMapping("/delete")
-    public void tableDelete() {
-        questionService.tableDelete();
+    @GetMapping("/delete/id={id}")
+    public void tableDelete(@PathVariable int id) {
+        questionService.tableDelete(id);
     }
 
-    @GetMapping("/get")
-    public Question getById() {
-        return questionService.getById();
+    @GetMapping("/get/id={id}")
+    public Question getById(@PathVariable int id) {
+        return questionService.getById(id);
 
     }
 

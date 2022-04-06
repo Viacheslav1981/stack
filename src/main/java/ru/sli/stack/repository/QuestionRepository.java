@@ -9,13 +9,7 @@ import java.util.List;
 @Component
 public class QuestionRepository {
     private DBworking dBworking;
-    int id = 27;
-    String title = "пример вставки строки";
-    String description = "проверка возврата вставленной строки на front";
-    String update = "update questions set title = 'проверка апдейта1', description = 'проходим апдейт номер 1', modifiedat = CURRENT_TIMESTAMP where id = " + id;
-    String insert = "insert into questions (title, description, createdat) values ('пример вставки строки99', 'вставка99 прошла' , CURRENT_TIMESTAMP)";
-    String delete = "delete from questions where id = " + id;
-    String select = "select * from questions where id= " + id;
+    int id = 0;
     String selectAll = "select * from questions";
     private Question question;
 
@@ -23,34 +17,16 @@ public class QuestionRepository {
         this.dBworking = dBworking;
     }
 
-    public Question tableUpdate() {
+    public Question tableUpdate(int id, String title, String description) {
         try {
+            String update = "update questions set title = '" + title + "', description = '" + description + "', modifiedat = CURRENT_TIMESTAMP where id = " + id;
             dBworking.tableUpdate(update);
             ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions where id=" + id);
-
-            while (resultSet.next()) {
-                String title = resultSet.getString("title");
-                String description = resultSet.getString("description");
-                question = new Question(title, description);
-
-            }
-
-        } catch (Exception e) {
-
-        }
-        return question;
-    }
-
-    public Question tableInsert() {
-        try {
-            dBworking.tableInsert(insert);
-            ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions where title='пример вставки строки123'");
 
             while (resultSet.next()) {
                 String titleIn = resultSet.getString("title");
                 String descriptionIn = resultSet.getString("description");
                 question = new Question(titleIn, descriptionIn);
-
             }
 
         } catch (Exception e) {
@@ -59,16 +35,36 @@ public class QuestionRepository {
         return question;
     }
 
-    public void tableDelete() {
+    public Question tableInsert(String title, String description) {
         try {
+            String insert = "insert into questions (title, description, createdat) values ('" + title + "', '" + description + "' , CURRENT_TIMESTAMP)";
+            id = dBworking.tableInsert(insert);
+            ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions where id = " + id);
+
+            while (resultSet.next()) {
+                String titleIn = resultSet.getString("title");
+                String descriptionIn = resultSet.getString("description");
+                question = new Question(titleIn, descriptionIn);
+            }
+
+        } catch (Exception e) {
+
+        }
+        return question;
+    }
+
+    public void tableDelete(int id) {
+        try {
+            String delete = "delete from questions where id = " + id;
             dBworking.tableDelete(delete);
         } catch (Exception e) {
 
         }
     }
 
-    public Question getById() {
+    public Question getById(int id) {
         try {
+            String select = "select * from questions where id= " + id;
             ResultSet resultSet = dBworking.tableSelect(select);
 
             while (resultSet.next()) {
@@ -129,6 +125,5 @@ public class QuestionRepository {
 
         return questionList;
     }
-
 
 }

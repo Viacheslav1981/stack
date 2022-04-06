@@ -22,21 +22,21 @@ public class QuestionService {
         return questionRepository.retQuestions();
     }
 
-    public Question tableUpdate() {
-        return questionRepository.tableUpdate();
+    public Question tableUpdate(int id, String title, String description) {
+        return questionRepository.tableUpdate(id, title, description);
     }
 
-    public Question tableInsert() {
-        return questionRepository.tableInsert();
+    public void tableDelete(int id) {
+        questionRepository.tableDelete(id);
     }
 
-    public void tableDelete() {
-        questionRepository.tableDelete();
+    public Question getById(int id) {
+        return questionRepository.getById(id);
     }
 
-    public Question getById() {
-        return questionRepository.getById();
-    }
 
+    public Question tableInsert(String title, String description) {
+        return questionRepository.tableInsert(title, description);
+    }
 
 }

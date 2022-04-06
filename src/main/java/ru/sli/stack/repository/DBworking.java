@@ -11,6 +11,7 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 public class DBworking {
 
     private Connection connection;
+    int id = 0;
 
     public DBworking() throws SQLException {
         connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/stackoverflow?user=postgres&password=voshod");
@@ -29,17 +30,19 @@ public class DBworking {
         }
     }
 
-    public void tableInsert(String insert) {
+    public int tableInsert(String insert) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insert, RETURN_GENERATED_KEYS);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             generatedKeys.next();
-            int id = generatedKeys.getInt(1);
+            id = generatedKeys.getInt(1);
             System.out.println(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return id;
     }
 
     public void tableDelete(String delete) {
