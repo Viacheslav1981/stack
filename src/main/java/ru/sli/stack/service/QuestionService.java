@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.repository.QuestionRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class QuestionService {
     }
 
 
-    public Question tableInsert(String title, String description) {
+    public Question tableInsert(String title, String description) throws SQLException {
         return questionRepository.tableInsert(title, description);
     }
 

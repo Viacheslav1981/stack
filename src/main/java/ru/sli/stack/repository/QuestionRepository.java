@@ -3,6 +3,7 @@ package ru.sli.stack.repository;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,22 +36,10 @@ public class QuestionRepository {
         return question;
     }
 
-    public Question tableInsert(String title, String description) {
-        try {
+    public Question tableInsert(String title, String description) throws SQLException {
             String insert = "insert into questions (title, description, createdat) values ('" + title + "', '" + description + "' , CURRENT_TIMESTAMP)";
             id = dBworking.tableInsert(insert);
-            ResultSet resultSet = dBworking.getConnection().executeQuery("select * from questions where id = " + id);
-
-            while (resultSet.next()) {
-                String titleIn = resultSet.getString("title");
-                String descriptionIn = resultSet.getString("description");
-                question = new Question(titleIn, descriptionIn);
-            }
-
-        } catch (Exception e) {
-
-        }
-        return question;
+        return getById(id);
     }
 
     public void tableDelete(int id) {

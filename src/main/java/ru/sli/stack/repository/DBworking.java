@@ -30,17 +30,13 @@ public class DBworking {
         }
     }
 
-    public int tableInsert(String insert) {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(insert, RETURN_GENERATED_KEYS);
-            preparedStatement.executeUpdate();
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            generatedKeys.next();
-            id = generatedKeys.getInt(1);
-            System.out.println(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public int tableInsert(String insert) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(insert, RETURN_GENERATED_KEYS);
+        preparedStatement.executeUpdate();
+        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+        generatedKeys.next();
+        id = generatedKeys.getInt(1);
+        System.out.println(id);
 
         return id;
     }
