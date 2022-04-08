@@ -1,12 +1,10 @@
 package ru.sli.stack.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.service.QuestionService;
 
+import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -34,9 +32,9 @@ public class HelloController {
 
     }
 
-    @GetMapping("/insert")
-    public Question tableInsert(@RequestParam String title, @RequestParam String description) throws SQLException {
-        return questionService.tableInsert(title, description);
+    @PostMapping("/questions")
+    public Question tableInsert(@RequestBody @Valid Question question) throws SQLException {
+        return questionService.tableInsert(question.title, question.description);
     }
 
     @GetMapping("/delete/id={id}")
