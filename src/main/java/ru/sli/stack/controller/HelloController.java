@@ -32,7 +32,7 @@ public class HelloController {
 
     }
 
-    @PostMapping("/questions")
+    @PostMapping("/post")
     public Question tableInsert(@RequestBody @Valid Question question) throws SQLException {
         return questionService.tableInsert(question.title, question.description);
     }
