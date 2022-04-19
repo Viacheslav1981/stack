@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @ControllerAdvice
 public class RestExceptionHandler {
@@ -27,10 +29,15 @@ public class RestExceptionHandler {
 
 
     @ExceptionHandler
-    public ResponseEntity<ValidationError> handleValidationError(MethodArgumentNotValidException e) {
-        ValidationError validationError = new ValidationError(e.getBindingResult().getFieldErrors().get(0).getField(), e.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
-        return new ResponseEntity<>(validationError, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<List<ValidationError>> handleValidationError(MethodArgumentNotValidException e) {
+        int countErrors = 0;
+        countErrors = e.getErrorCount();
+        List<ValidationError> array = new ArrayList<>();
+        for (int i = 0; i < countErrors; i++) {
+            array.add(new ValidationError(e.getBindingResult().getFieldErrors().get(i).getField(), e.getBindingResult().getFieldErrors().get(i).getDefaultMessage()));
+        }
 
+        return new ResponseEntity<>(array, HttpStatus.BAD_REQUEST);
     }
 
 

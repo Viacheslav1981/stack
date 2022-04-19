@@ -6,6 +6,7 @@ public class Question {
 
     @NotBlank(message = "поле не может быть пустым")
     private String title;
+    @NotBlank(message = "поле не может быть пустым")
     private String description;
     private int id;
 
