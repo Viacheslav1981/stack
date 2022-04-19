@@ -1,0 +1,29 @@
+### Send POST request with json body
+POST http://localhost:9090/questions
+Content-Type: application/json
+
+{
+  "title": "",
+  "description": "contentInsert1"
+}
+
+### Send DELETE request
+DELETE http://localhost:9090/questions/35
+Content-Type: application/json
+
+### Send PUT request
+PUT http://localhost:9090/questions
+Content-Type: application/json
+
+{
+  "id": 99,
+  "title": "testJust",
+  "description": "disc"
+}
+
+###
+
+
+
+
+
