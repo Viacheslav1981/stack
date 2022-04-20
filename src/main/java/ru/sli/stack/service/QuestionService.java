@@ -1,5 +1,6 @@
 package ru.sli.stack.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.repository.QuestionRepository;
@@ -9,11 +10,17 @@ import java.util.List;
 
 @Service
 public class QuestionService {
+
     private QuestionRepository questionRepository;
 
-    public QuestionService(QuestionRepository questionRepository) {
+    @Autowired
+    public void setQuestionRepository(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
+
+//    public QuestionService(QuestionRepository questionRepository) {
+//        this.questionRepository = questionRepository;
+//    }
 
     public List<List<String>> findAll() {
         return questionRepository.findAll();

@@ -3,12 +3,12 @@ POST http://localhost:9090/questions
 Content-Type: application/json
 
 {
-  "title": "bestTest",
-  "description": "testingIsGood"
+  "title": "w",
+  "description": "w"
 }
 
 ### Send DELETE request
-DELETE http://localhost:9090/questions/35
+DELETE http://localhost:9090/questions/54
 Content-Type: application/json
 
 ### Send PUT request
@@ -16,9 +16,9 @@ PUT http://localhost:9090/questions
 Content-Type: application/json
 
 {
-  "id": 99,
-  "title": "testJust",
-  "description": "disc"
+  "id": 10,
+  "title": "когда получу оффер",
+  "description": "пахать когда можно уже"
 }
 
 ###
