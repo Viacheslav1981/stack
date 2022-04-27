@@ -37,7 +37,6 @@ public class DBworking {
         generatedKeys.next();
         id = generatedKeys.getInt(1);
         System.out.println(id);
-
         return id;
     }
 

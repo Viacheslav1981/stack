@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 public class RecommendationController {
+
     public RecommendationService recommendationService;
 
     public RecommendationController(RecommendationService recommendationService) {
@@ -19,4 +20,5 @@ public class RecommendationController {
         return recommendationService.recommend();
 
     }
+
 }
