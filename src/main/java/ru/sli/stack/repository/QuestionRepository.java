@@ -92,7 +92,7 @@ public class QuestionRepository {
         return listAll;
     }
 
-    public List<Question> retQuestions() {
+    public List<Question> getQuestions() {
 
         List<Question> questionList = new ArrayList<>();
 
@@ -101,9 +101,10 @@ public class QuestionRepository {
 
             while (resultSet.next()) {
 
+                int id = resultSet.getInt("id");
                 String title = resultSet.getString("title");
                 String description = resultSet.getString("description");
-                Question question = new Question(title, description);
+                Question question = new Question(id, title, description);
                 questionList.add(question);
 
             }

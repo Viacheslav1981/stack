@@ -1,6 +1,7 @@
 package ru.sli.stack.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.service.CommentService;
@@ -8,6 +9,7 @@ import ru.sli.stack.service.QuestionService;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/questions")
@@ -47,12 +49,12 @@ public class HelloController {
 
     }
 
+    /*
     @GetMapping()
-    public List<Question> testQuestion() {
-        return questionService.retQuestions();
+    public List<Question> getQuestion() {
+        return questionService.getQuestions();
     }
 
-    /*
     @GetMapping("/{id}")
     public Question getById(@PathVariable int id) {
         return questionService.getById(id);
@@ -61,10 +63,28 @@ public class HelloController {
 
      */
 
+    @GetMapping()
+    public List<QuestionDto> getQuestion() {
+        List<QuestionDto> questionDtoList = new ArrayList<>();
+        List<Question> questions = questionService.getQuestions();
+        for (int i = 0; i < questions.size(); i++) {
+            List<Comment> comments = commentService.getCommentsByQuestionId(questions.get(i).getId());
+            questionDtoList.add(new QuestionDto(questions.get(i).getId(), questions.get(i).getTitle(), questions.get(i).getDescription(), comments));
+        }
+
+        return questionDtoList;
+    }
+
+    @GetMapping("/{id}")
+    public QuestionDto getById(@PathVariable int id) {
+        Question question = questionService.getById(id);
+        List<Comment> comments = commentService.getCommentsByQuestionId(id);
+        return new QuestionDto(id, question.getTitle(), question.getDescription(), comments);
+    }
+
     @PutMapping()
     public Question tableUpdate(@RequestBody Question question) {
         return questionService.tableUpdate(question.getId(), question.getTitle(), question.getDescription());
-
     }
 
     @PostMapping()

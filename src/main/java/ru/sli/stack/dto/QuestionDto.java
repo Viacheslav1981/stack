@@ -6,17 +6,32 @@ import java.util.List;
 
 public class QuestionDto {
 
+    private int id;
     private String title;
     private String description;
-    private int id;
 
     private List<Comment> comments;
 
-    public QuestionDto(String title, String description, int id, List<Comment> comments) {
+    public QuestionDto(int id, String title, String description, List<Comment> comments) {
         this.title = title;
         this.description = description;
         this.id = id;
         this.comments = comments;
+    }
+
+    public QuestionDto(int id, String title, String description) {
+        this.title = title;
+        this.description = description;
+        this.id = id;
+    }
+
+    public QuestionDto(int id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
+    public QuestionDto(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

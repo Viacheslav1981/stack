@@ -10,6 +10,12 @@ public class Question {
     private String description;
     private int id;
 
+    public Question(int id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+
     public Question(String title, String description) {
         this.title = title;
         this.description = description;

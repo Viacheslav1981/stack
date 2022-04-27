@@ -28,8 +28,8 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
-    public List<Question> retQuestions() {
-        return questionRepository.retQuestions();
+    public List<Question> getQuestions() {
+        return questionRepository.getQuestions();
     }
 
     public Question tableUpdate(int id, String title, String description) {
