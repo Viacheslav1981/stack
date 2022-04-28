@@ -5,6 +5,8 @@ import ru.sli.stack.dto.CommentDto;
 import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.Question;
+import ru.sli.stack.service.CommentMapper;
+import ru.sli.stack.service.CommentMapperImpl;
 import ru.sli.stack.service.CommentService;
 import ru.sli.stack.service.QuestionService;
 
@@ -18,6 +20,8 @@ import java.util.List;
 public class HelloController {
     private QuestionService questionService;
     private CommentService commentService;
+
+    private CommentMapper commentMapper = new CommentMapperImpl();
 
     public HelloController(QuestionService questionService, CommentService commentService) {
         this.questionService = questionService;
@@ -50,19 +54,11 @@ public class HelloController {
 
     }
 
-    /*
-    @GetMapping()
-    public List<Question> getQuestion() {
-        return questionService.getQuestions();
+    @GetMapping("/test/{commentId}")
+    public CommentDto getTestDto(@PathVariable int commentId) {
+        Comment comment = new Comment(commentService.getCommentById(commentId).getQuestionId(), commentService.getCommentById(commentId).getComment());
+        return commentMapper.commentToDto(comment);
     }
-
-    @GetMapping("/{id}")
-    public Question getById(@PathVariable int id) {
-        return questionService.getById(id);
-
-    }
-
-     */
 
     @GetMapping()
     public List<QuestionDto> getQuestions() {
@@ -109,5 +105,6 @@ public class HelloController {
     public void tableDelete(@PathVariable Integer id) {
         questionService.tableDelete(id);
     }
+
 
 }

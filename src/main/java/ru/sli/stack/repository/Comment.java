@@ -1,7 +1,10 @@
 package ru.sli.stack.repository;
 
+import lombok.Data;
+
 import javax.validation.constraints.NotBlank;
 
+@Data
 public class Comment {
 
     @NotBlank(message = "поле не может быть пустым")
