@@ -1,7 +1,5 @@
 package ru.sli.stack.dto;
 
-import ru.sli.stack.repository.Comment;
-
 import java.util.List;
 
 public class QuestionDto {
@@ -10,9 +8,9 @@ public class QuestionDto {
     private String title;
     private String description;
 
-    private List<Comment> comments;
+    private List<CommentDto> comments;
 
-    public QuestionDto(int id, String title, String description, List<Comment> comments) {
+    public QuestionDto(int id, String title, String description, List<CommentDto> comments) {
         this.title = title;
         this.description = description;
         this.id = id;
@@ -58,11 +56,11 @@ public class QuestionDto {
         this.id = id;
     }
 
-    public List<Comment> getComments() {
+    public List<CommentDto> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(List<CommentDto> comments) {
         this.comments = comments;
     }
 }

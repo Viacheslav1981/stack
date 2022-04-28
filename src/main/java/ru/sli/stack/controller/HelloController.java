@@ -1,6 +1,7 @@
 package ru.sli.stack.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.sli.stack.dto.CommentDto;
 import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.Question;
@@ -64,12 +65,18 @@ public class HelloController {
      */
 
     @GetMapping()
-    public List<QuestionDto> getQuestion() {
+    public List<QuestionDto> getQuestions() {
         List<QuestionDto> questionDtoList = new ArrayList<>();
         List<Question> questions = questionService.getQuestions();
         for (int i = 0; i < questions.size(); i++) {
+            List<CommentDto> commentDtos = new ArrayList<>();
             List<Comment> comments = commentService.getCommentsByQuestionId(questions.get(i).getId());
-            questionDtoList.add(new QuestionDto(questions.get(i).getId(), questions.get(i).getTitle(), questions.get(i).getDescription(), comments));
+            for (int j = 0; j < comments.size(); j++) {
+                CommentDto commentDto = new CommentDto(comments.get(j).getComment(), comments.get(j).getId(), comments.get(j).getQuestionId());
+                commentDtos.add(commentDto);
+            }
+
+            questionDtoList.add(new QuestionDto(questions.get(i).getId(), questions.get(i).getTitle(), questions.get(i).getDescription(), commentDtos));
         }
 
         return questionDtoList;
@@ -79,7 +86,13 @@ public class HelloController {
     public QuestionDto getById(@PathVariable int id) {
         Question question = questionService.getById(id);
         List<Comment> comments = commentService.getCommentsByQuestionId(id);
-        return new QuestionDto(id, question.getTitle(), question.getDescription(), comments);
+        List<CommentDto> commentDtos = new ArrayList<>();
+        for (int i = 0; i < comments.size(); i++) {
+            CommentDto commentDto = new CommentDto(comments.get(i).getComment(), comments.get(i).getId(), comments.get(i).getQuestionId());
+            commentDtos.add(commentDto);
+        }
+
+        return new QuestionDto(id, question.getTitle(), question.getDescription(), commentDtos);
     }
 
     @PutMapping()
