@@ -6,8 +6,8 @@ import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.service.CommentMapper;
-import ru.sli.stack.service.CommentMapperImpl;
 import ru.sli.stack.service.CommentService;
+import ru.sli.stack.service.QuestionMapper;
 import ru.sli.stack.service.QuestionService;
 
 import javax.validation.Valid;
@@ -20,12 +20,16 @@ import java.util.List;
 public class HelloController {
     private QuestionService questionService;
     private CommentService commentService;
+    private CommentMapper commentMapper;
+    private QuestionMapper questionMapper;
 
-    private CommentMapper commentMapper = new CommentMapperImpl();
+    // private CommentMapper commentMapper = new CommentMapperImpl();
 
-    public HelloController(QuestionService questionService, CommentService commentService) {
+    public HelloController(QuestionService questionService, CommentService commentService, CommentMapper commentMapper, QuestionMapper questionMapper) {
         this.questionService = questionService;
         this.commentService = commentService;
+        this.commentMapper = commentMapper;
+        this.questionMapper = questionMapper;
     }
 
     @GetMapping("/{questionId}/comments")
@@ -56,9 +60,15 @@ public class HelloController {
 
     @GetMapping("/test/{commentId}")
     public CommentDto getTestDto(@PathVariable int commentId) {
-        Comment comment = new Comment(commentService.getCommentById(commentId).getQuestionId(), commentService.getCommentById(commentId).getComment());
-        return commentMapper.commentToDto(comment);
+        return commentMapper.commentToDto(commentService.getCommentById(commentId));
     }
+
+    @GetMapping("/test2/{questionId}")
+    public QuestionDto getQuestionDto(@PathVariable int questionId) {
+
+        return questionMapper.questionToDto(questionService.getById(questionId), commentService.getCommentsByQuestionId(questionId));
+    }
+
 
     @GetMapping()
     public List<QuestionDto> getQuestions() {

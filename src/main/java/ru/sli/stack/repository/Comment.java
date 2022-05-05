@@ -1,10 +1,7 @@
 package ru.sli.stack.repository;
 
-import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
 
-@Data
 public class Comment {
 
     @NotBlank(message = "поле не может быть пустым")
@@ -13,7 +10,7 @@ public class Comment {
     private int questionId;
 
 
-    public Comment(int questionId, String comment) {
+    Comment(int questionId, String comment) {
         this.comment = comment;
         this.questionId = questionId;
     }

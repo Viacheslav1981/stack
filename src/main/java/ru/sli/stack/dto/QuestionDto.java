@@ -17,20 +17,6 @@ public class QuestionDto {
         this.comments = comments;
     }
 
-    public QuestionDto(int id, String title, String description) {
-        this.title = title;
-        this.description = description;
-        this.id = id;
-    }
-
-    public QuestionDto(int id, String title) {
-        this.id = id;
-        this.title = title;
-    }
-
-    public QuestionDto(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
