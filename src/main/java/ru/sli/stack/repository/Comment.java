@@ -2,6 +2,7 @@ package ru.sli.stack.repository;
 
 import javax.validation.constraints.NotBlank;
 
+
 public class Comment {
 
     @NotBlank(message = "поле не может быть пустым")

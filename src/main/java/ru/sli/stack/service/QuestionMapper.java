@@ -14,6 +14,8 @@ public interface QuestionMapper {
     @Mapping(target = "comments", expression = "java(toCommentDto(com1))")
     QuestionDto questionToDto(Question question, List<Comment> com1);
 
+    QuestionDto toDto(Question question);
+
     List<CommentDto> toCommentDto(List<Comment> comments);
 
 }

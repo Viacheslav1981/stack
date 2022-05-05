@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.repository.QuestionRepository;
 
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionService {
@@ -24,29 +24,27 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public List<List<String>> findAll() {
+
+    public List<Question> getQuestions() {
         return questionRepository.findAll();
     }
 
-    public List<Question> getQuestions() {
-        return questionRepository.getQuestions();
-    }
-
     public Question tableUpdate(int id, String title, String description) {
-        return questionRepository.tableUpdate(id, title, description);
+        Question question = new Question(id, title, description);
+        return questionRepository.save(question);
     }
 
     public void tableDelete(int id) {
-        questionRepository.tableDelete(id);
+        questionRepository.deleteById(id);
     }
 
-    public Question getById(int id) {
-        return questionRepository.getById(id);
+    public Optional<Question> getById(Integer id) {
+        return questionRepository.findById(id);
     }
 
-
-    public Question tableInsert(String title, String description) throws SQLException {
-        return questionRepository.tableInsert(title, description);
+    public Question tableInsert(String title, String description) {
+        Question question = new Question(title, description);
+        return questionRepository.save(question);
     }
 
 }

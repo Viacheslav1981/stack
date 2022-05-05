@@ -1,14 +1,22 @@
 package ru.sli.stack.repository;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+@Entity
+@Table(name = "questions")
 public class Question {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @NotBlank(message = "поле не может быть пустым")
     private String title;
     @NotBlank(message = "поле не может быть пустым")
     private String description;
-    private int id;
+
+    public Question() {
+    }
 
     public Question(int id, String title, String description) {
         this.id = id;
@@ -20,6 +28,7 @@ public class Question {
         this.title = title;
         this.description = description;
     }
+
 
     public String getTitle() {
         return title;
