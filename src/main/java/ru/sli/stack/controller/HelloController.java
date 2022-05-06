@@ -1,14 +1,17 @@
 package ru.sli.stack.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.sli.stack.dto.CommentDto;
 import ru.sli.stack.dto.QuestionDto;
+import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.service.CommentMapper;
+import ru.sli.stack.service.CommentService;
 import ru.sli.stack.service.QuestionMapper;
 import ru.sli.stack.service.QuestionService;
 
 import javax.validation.Valid;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 //import ru.sli.stack.service.CommentService;
@@ -17,15 +20,15 @@ import java.util.List;
 @RestController
 public class HelloController {
     private QuestionService questionService;
-    // private CommentService commentService;
+    private CommentService commentService;
     private CommentMapper commentMapper;
     private QuestionMapper questionMapper;
 
     // private CommentMapper commentMapper = new CommentMapperImpl();
 
-    public HelloController(QuestionService questionService, CommentMapper commentMapper, QuestionMapper questionMapper) {
+    public HelloController(QuestionService questionService, CommentService commentService, CommentMapper commentMapper, QuestionMapper questionMapper) {
         this.questionService = questionService;
-        // this.commentService = commentService;
+        this.commentService = commentService;
         this.commentMapper = commentMapper;
         this.questionMapper = questionMapper;
     }
@@ -83,7 +86,7 @@ public class HelloController {
 //            questionDtoList.add(new QuestionDto(questions.get(i).getId(), questions.get(i).getTitle(), questions.get(i).getDescription(), commentDtos));
 //        }
 //
-//        return questionDtoList;
+//       return questionDtoList;
 //    }
 //
 //    @GetMapping("/{id}")
@@ -99,17 +102,39 @@ public class HelloController {
 //        return new QuestionDto(id, question.getTitle(), question.getDescription(), commentDtos);
 //    }
 
+
     @GetMapping
-    public List<Question> findAll() {
-        return questionService.getQuestions();
+    public List<QuestionDto> findAll() {
+        List<Question> questions = questionService.getQuestions();
+        List<QuestionDto> questionDtos = new ArrayList<>();
+        for (int i = 0; i < questions.size(); i++) {
+            List<Comment> comments = commentService.findByQuestionId(questions.get(i).getId());
+            questionDtos.add(questionMapper.questionToDto(questions.get(i), comments));
+        }
+        return questionDtos;
     }
 
     @GetMapping("/{id}")
     public QuestionDto findById(@PathVariable Integer id) {
-        return questionService.getById(id)
-                .map(questionMapper::toDto)
-                .orElse(null);
+        Question question = questionService.findById(id);
+        List<Comment> comments = commentService.findAll();
+        List<CommentDto> commentDtos = new ArrayList<>();
+        QuestionDto questionDto = null;
+        for (int i = 0; i < comments.size(); i++) {
+            if (comments.get(i).getQuestionId() == question.getId()) {
+                commentDtos.add(commentMapper.commentToDto(comments.get(i)));
+            }
+            questionDto = new QuestionDto(question.getId(), question.getTitle(), question.getDescription(), commentDtos);
+        }
+        return questionDto;
     }
+
+//    @GetMapping("/{id}")
+//    public QuestionDto findById(@PathVariable Integer id) {
+//        return questionService.getById(id)
+//                .map(questionMapper::toDto)
+//                .orElse(null);
+//    }
 
     @PutMapping()
     public Question tableUpdate(@RequestBody Question question) {
@@ -117,7 +142,7 @@ public class HelloController {
     }
 
     @PostMapping()
-    public Question tableInsert(@RequestBody @Valid Question question) throws SQLException {
+    public Question tableInsert(@RequestBody @Valid Question question) {
         return questionService.tableInsert(question.getTitle(), question.getDescription());
     }
 

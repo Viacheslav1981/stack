@@ -12,14 +12,6 @@ public class QuestionService {
 
     private QuestionRepository questionRepository;
 
-    /*
-    @Autowired
-    public void setQuestionRepository(QuestionRepository questionRepository) {
-        this.questionRepository = questionRepository;
-    }
-
-     */
-
     public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
@@ -40,6 +32,10 @@ public class QuestionService {
 
     public Optional<Question> getById(Integer id) {
         return questionRepository.findById(id);
+    }
+
+    public Question findById(Integer id) {
+        return questionRepository.getById(id);
     }
 
     public Question tableInsert(String title, String description) {

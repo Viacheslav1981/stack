@@ -15,8 +15,19 @@ public class Question {
     @NotBlank(message = "поле не может быть пустым")
     private String description;
 
+    // private List<Comment> comments;
+
     public Question() {
     }
+
+    /*
+    public Question(Integer id, @NotBlank(message = "поле не может быть пустым") String title, @NotBlank(message = "поле не может быть пустым") String description, List<Comment> comments) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+
+
+     */
 
     public Question(int id, String title, String description) {
         this.id = id;

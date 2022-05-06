@@ -1,27 +1,32 @@
 package ru.sli.stack.repository;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-
+@Entity
+@Table(name = "comments")
 public class Comment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @NotBlank(message = "поле не может быть пустым")
     private String comment;
-    private int id;
-    private int questionId;
+    private Integer questionid;
 
-
-    Comment(int questionId, String comment) {
-        this.comment = comment;
-        this.questionId = questionId;
+    public Comment() {
     }
 
+    Comment(Integer questionId, String comment) {
+        this.comment = comment;
+        this.questionid = questionId;
+    }
     public int getQuestionId() {
-        return questionId;
+        return questionid;
     }
 
     public void setQuestionId(int questionId) {
-        this.questionId = questionId;
+        this.questionid = questionId;
     }
 
     public int getId() {
