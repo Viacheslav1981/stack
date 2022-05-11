@@ -1,7 +1,6 @@
 package ru.sli.stack.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.sli.stack.dto.CommentDto;
 import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.Question;
@@ -12,6 +11,7 @@ import ru.sli.stack.service.QuestionService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 //import ru.sli.stack.service.CommentService;
@@ -105,12 +105,13 @@ public class HelloController {
 
     @GetMapping
     public List<QuestionDto> findAll() {
-        List<Question> questions = questionService.getQuestions();
+        List<Question> questions = questionService.getAllQuestions();
         List<QuestionDto> questionDtos = new ArrayList<>();
-        for (int i = 0; i < questions.size(); i++) {
-            List<Comment> comments = commentService.findByQuestionId(questions.get(i).getId());
-            questionDtos.add(questionMapper.questionToDto(questions.get(i), comments));
+        for (Question question : questions) {
+            List<Comment> comments = commentService.findByQuestionId(question.getId());
+            questionDtos.add(questionMapper.questionToDto(question, comments));
         }
+
         return questionDtos;
     }
 
@@ -118,23 +119,15 @@ public class HelloController {
     public QuestionDto findById(@PathVariable Integer id) {
         Question question = questionService.findById(id);
         List<Comment> comments = commentService.findAll();
-        List<CommentDto> commentDtos = new ArrayList<>();
-        QuestionDto questionDto = null;
-        for (int i = 0; i < comments.size(); i++) {
-            if (comments.get(i).getQuestionId() == question.getId()) {
-                commentDtos.add(commentMapper.commentToDto(comments.get(i)));
+        Iterator<Comment> commentIterator = comments.iterator();
+        while (commentIterator.hasNext()) {
+            if (commentIterator.next().getQuestionId() != question.getId()) {
+                commentIterator.remove();
             }
-            questionDto = new QuestionDto(question.getId(), question.getTitle(), question.getDescription(), commentDtos);
         }
-        return questionDto;
-    }
 
-//    @GetMapping("/{id}")
-//    public QuestionDto findById(@PathVariable Integer id) {
-//        return questionService.getById(id)
-//                .map(questionMapper::toDto)
-//                .orElse(null);
-//    }
+        return questionMapper.questionToDto(question, comments);
+    }
 
     @PutMapping()
     public Question tableUpdate(@RequestBody Question question) {
