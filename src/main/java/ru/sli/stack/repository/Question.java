@@ -2,6 +2,7 @@ package ru.sli.stack.repository;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 @Table(name = "questions")
@@ -15,7 +16,8 @@ public class Question {
     @NotBlank(message = "поле не может быть пустым")
     private String description;
 
-    // private List<Comment> comments;
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    private List<Comment> comments;
 
     public Question() {
     }
@@ -38,6 +40,14 @@ public class Question {
     public Question(String title, String description) {
         this.title = title;
         this.description = description;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
 

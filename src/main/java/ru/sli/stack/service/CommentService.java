@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.CommentRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,17 +17,17 @@ public class CommentService {
     }
 
 
-    public List<Comment> findByQuestionId(Integer id) {
-        List<Comment> comments = commentRepository.findAll();
-        List<Comment> returnComments = new ArrayList<>();
-        for (int i = 0; i < comments.size(); i++) {
-            if (id == comments.get(i).getQuestionId()) {
-                returnComments.add(comments.get(i));
-            }
-
-        }
-        return returnComments;
-    }
+//    public List<Comment> findByQuestionId(Integer id) {
+//        List<Comment> comments = commentRepository.findAll();
+//        Iterator<Comment> commentIterator = comments.iterator();
+////        while (commentIterator.hasNext()) {
+////            if (id != commentIterator.next().getQuestionId()) {
+////                commentIterator.remove();
+////            }
+////        }
+//        comments.removeIf(comment -> id != comment.getQuestionId());
+//        return comments;
+//    }
 
     public List<Comment> findAll() {
         return commentRepository.findAll();

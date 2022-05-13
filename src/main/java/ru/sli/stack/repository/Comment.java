@@ -12,22 +12,26 @@ public class Comment {
     private Integer id;
     @NotBlank(message = "поле не может быть пустым")
     private String comment;
-    private Integer questionid;
+
+    @ManyToOne
+    private Question question;
+
+    // private Integer questionid;
 
     public Comment() {
     }
 
-    Comment(Integer questionId, String comment) {
+    Comment(String comment) {
         this.comment = comment;
-        this.questionid = questionId;
+        //  this.questionid = questionId;
     }
-    public int getQuestionId() {
-        return questionid;
-    }
+//    public int getQuestionId() {
+//        return questionid;
+//    }
 
-    public void setQuestionId(int questionId) {
-        this.questionid = questionId;
-    }
+//    public void setQuestionId(int questionId) {
+//        this.questionid = questionId;
+//    }
 
     public int getId() {
         return id;
