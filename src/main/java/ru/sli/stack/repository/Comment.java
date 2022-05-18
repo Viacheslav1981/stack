@@ -3,7 +3,7 @@ package ru.sli.stack.repository;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Entity
+@Entity(name = "Comment")
 @Table(name = "comments")
 public class Comment {
 
@@ -16,22 +16,21 @@ public class Comment {
     @ManyToOne
     private Question question;
 
-    // private Integer questionid;
 
     public Comment() {
     }
 
     Comment(String comment) {
         this.comment = comment;
-        //  this.questionid = questionId;
     }
-//    public int getQuestionId() {
-//        return questionid;
-//    }
 
-//    public void setQuestionId(int questionId) {
-//        this.questionid = questionId;
-//    }
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
     public int getId() {
         return id;

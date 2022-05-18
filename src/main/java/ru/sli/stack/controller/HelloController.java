@@ -2,6 +2,7 @@ package ru.sli.stack.controller;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.service.CommentMapper;
 import ru.sli.stack.service.CommentService;
@@ -9,6 +10,8 @@ import ru.sli.stack.service.QuestionMapper;
 import ru.sli.stack.service.QuestionService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 //import ru.sli.stack.service.CommentService;
 
@@ -98,7 +101,7 @@ public class HelloController {
 //        return new QuestionDto(id, question.getTitle(), question.getDescription(), commentDtos);
 //    }
 
-
+//
 //    @GetMapping
 //    public List<QuestionDto> findAll() {
 //        List<Question> questions = questionService.getAllQuestions();
@@ -111,15 +114,39 @@ public class HelloController {
 //        return questionDtos;
 //    }
 
+//    @GetMapping
+//    public List<Question> findAll() {
+//        return questionService.findAll();
+//    }
+
+//
+//    @GetMapping("/{id}")
+//    @Transactional
+//    public Question findById(@PathVariable Integer id) {
+//        Question question = questionService.findById(id);
+//        // List<Comment> comments = commentService.findAll();
+//        // comments.removeIf(comment -> comment.getQuestionId() != id);
+//        return question;
+//        //return questionMapper.questionToDto(question, comments);
+//    }
+
     @GetMapping("/{id}")
     @Transactional
-    public Question findById(@PathVariable Integer id) {
-        Question question = questionService.findById(id);
-        // List<Comment> comments = commentService.findAll();
-        // comments.removeIf(comment -> comment.getQuestionId() != id);
-        return question;
-        //return questionMapper.questionToDto(question, comments);
+    public QuestionDto findById(@PathVariable Integer id) {
+        return questionMapper.toDto(questionService.findById(id));
     }
+
+
+    @GetMapping
+    public List<QuestionDto> findAll() {
+        List<Question> questions = questionService.findAll();
+        List<QuestionDto> questionDtos = new ArrayList<>();
+        for (Question question : questions) {
+            questionDtos.add(questionMapper.toDto(question));
+        }
+        return questionDtos;
+    }
+
 
     @PutMapping()
     public Question tableUpdate(@RequestBody Question question) {

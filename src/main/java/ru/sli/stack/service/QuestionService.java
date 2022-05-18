@@ -34,6 +34,10 @@ public class QuestionService {
         return questionRepository.findById(id);
     }
 
+    public List<Question> findAll() {
+        return questionRepository.findAll();
+    }
+
 
     public Question findById(Integer id) {
         // return questionRepository.findById(id).get();
