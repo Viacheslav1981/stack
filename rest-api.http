@@ -3,9 +3,8 @@ POST http://localhost:9090/questions
 Content-Type: application/json
 
 {
-  "id": 77,
-  "title": "new record1",
-  "description": "testing record1"
+  "title": "new record2",
+  "description": "testing record2"
 }
 
 ### Send POST request with json body

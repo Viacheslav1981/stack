@@ -1,6 +1,5 @@
 package ru.sli.stack.controller;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Question;
@@ -131,11 +130,9 @@ public class HelloController {
 //    }
 
     @GetMapping("/{id}")
-    @Transactional
     public QuestionDto findById(@PathVariable Integer id) {
         return questionMapper.toDto(questionService.findById(id));
     }
-
 
     @GetMapping
     public List<QuestionDto> findAll() {
@@ -147,15 +144,16 @@ public class HelloController {
         return questionDtos;
     }
 
-
     @PutMapping()
     public Question tableUpdate(@RequestBody Question question) {
         return questionService.tableUpdate(question.getId(), question.getTitle(), question.getDescription());
     }
 
     @PostMapping()
-    public Question tableInsert(@RequestBody @Valid Question question) {
-        return questionService.tableInsert(question.getTitle(), question.getDescription());
+    public QuestionDto tableInsert(@RequestBody @Valid QuestionDto questionDto) {
+        Question question = questionMapper.toEntity(questionDto);
+        question = questionService.create(question);
+        return questionMapper.toDto(question);
     }
 
     @DeleteMapping("/{id}")

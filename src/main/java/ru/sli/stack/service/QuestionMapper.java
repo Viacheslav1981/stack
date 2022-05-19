@@ -16,6 +16,8 @@ public interface QuestionMapper {
 
     QuestionDto toDto(Question question);
 
+    Question toEntity(QuestionDto questionDto);
+
     List<CommentDto> toCommentDto(List<Comment> comments);
 
 }

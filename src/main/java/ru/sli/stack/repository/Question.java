@@ -2,6 +2,7 @@ package ru.sli.stack.repository;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity(name = "Question")
@@ -15,21 +16,14 @@ public class Question {
     private String title;
     @NotBlank(message = "поле не может быть пустым")
     private String description;
+    @Column(name = "createdat")
+    private ZonedDateTime createdAt;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
     private List<Comment> comments;
 
     public Question() {
     }
-
-    /*
-    public Question(Integer id, @NotBlank(message = "поле не может быть пустым") String title, @NotBlank(message = "поле не может быть пустым") String description, List<Comment> comments) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-
-
-     */
 
     public Question(int id, String title, String description) {
         this.id = id;
@@ -50,6 +44,13 @@ public class Question {
         this.comments = comments;
     }
 
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public String getTitle() {
         return title;

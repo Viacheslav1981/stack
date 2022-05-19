@@ -1,5 +1,6 @@
 package ru.sli.stack.dto;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class QuestionDto {
@@ -8,15 +9,26 @@ public class QuestionDto {
     private String title;
     private String description;
 
+    private ZonedDateTime createdAt;
+
     private List<CommentDto> comments;
 
-    public QuestionDto(int id, String title, String description, List<CommentDto> comments) {
+    public QuestionDto(int id, String title, String description, ZonedDateTime createdAt, List<CommentDto> comments) {
         this.title = title;
         this.description = description;
         this.id = id;
+        this.createdAt = createdAt;
         this.comments = comments;
     }
 
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public String getTitle() {
         return title;

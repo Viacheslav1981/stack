@@ -1,9 +1,11 @@
 package ru.sli.stack.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.repository.QuestionRepository;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,4 +51,9 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
+    @Transactional
+    public Question create(Question question) {
+        question.setCreatedAt(ZonedDateTime.now());
+        return questionRepository.save(question);
+    }
 }
