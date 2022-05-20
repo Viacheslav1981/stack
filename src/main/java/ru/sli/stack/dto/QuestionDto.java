@@ -1,11 +1,14 @@
 package ru.sli.stack.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
 public class QuestionDto {
 
     private int id;
+    @ApiModelProperty(value = "заголовок вопроса", example = "вопрос 1")
     private String title;
     private String description;
 

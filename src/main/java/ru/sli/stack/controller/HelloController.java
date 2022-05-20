@@ -1,5 +1,6 @@
 package ru.sli.stack.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Question;
@@ -134,6 +135,7 @@ public class HelloController {
         return questionMapper.toDto(questionService.findById(id));
     }
 
+    @ApiOperation("список вопросов")
     @GetMapping
     public List<QuestionDto> findAll() {
         List<Question> questions = questionService.findAll();
