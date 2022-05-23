@@ -10,8 +10,9 @@ import ru.sli.stack.service.QuestionMapper;
 import ru.sli.stack.service.QuestionService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //import ru.sli.stack.service.CommentService;
 
@@ -139,12 +140,20 @@ public class HelloController {
     @GetMapping
     public List<QuestionDto> findAll() {
         List<Question> questions = questionService.findAll();
-        List<QuestionDto> questionDtos = new ArrayList<>();
-        for (Question question : questions) {
-            questionDtos.add(questionMapper.toDto(question));
-        }
-        return questionDtos;
+//        questions.stream().sorted(Comparator.comparing(Question::getCreatedAt))
+//                .map(question -> questionMapper.toDto(question))
+//                .map(q -> q.getTitle() + " " + q.getDescription())
+//                //.collect(Collectors.toList());
+//                .forEach(System.out::println);
+
+        // return null;
+//
+        return questions.stream().sorted(Comparator.comparing(Question::getCreatedAt).reversed())
+                .filter(question -> question.getComments().size() > 0)
+                .map(question -> questionMapper.toDto(question))
+                .collect(Collectors.toList());
     }
+
 
     @PutMapping()
     public Question tableUpdate(@RequestBody Question question) {
