@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RequestMapping("/questions")
 @RestController
-public class HelloController {
+public class QuestionController {
     private QuestionService questionService;
     private CommentService commentService;
     private CommentMapper commentMapper;
@@ -26,7 +26,7 @@ public class HelloController {
 
     // private CommentMapper commentMapper = new CommentMapperImpl();
 
-    public HelloController(QuestionService questionService, CommentService commentService, CommentMapper commentMapper, QuestionMapper questionMapper) {
+    public QuestionController(QuestionService questionService, CommentService commentService, CommentMapper commentMapper, QuestionMapper questionMapper) {
         this.questionService = questionService;
         this.commentService = commentService;
         this.commentMapper = commentMapper;
@@ -140,16 +140,16 @@ public class HelloController {
     @GetMapping
     public List<QuestionDto> findAll() {
         List<Question> questions = questionService.findAll();
-//        questions.stream().sorted(Comparator.comparing(Question::getCreatedAt))
-//                .map(question -> questionMapper.toDto(question))
-//                .map(q -> q.getTitle() + " " + q.getDescription())
-//                //.collect(Collectors.toList());
-//                .forEach(System.out::println);
+        questions.stream().sorted(((o1, o2) -> o1.getCreatedAt().compareTo(o2.getCreatedAt())))
+                .map(question -> questionMapper.toDto(question))
+                .map(q -> q.getTitle() + " " + q.getDescription())
+                //.collect(Collectors.toList());
+                .forEach(System.out::println);
 
         // return null;
 //
         return questions.stream().sorted(Comparator.comparing(Question::getCreatedAt).reversed())
-                .filter(question -> question.getComments().size() > 0)
+                //.filter(question -> question.getComments().size() > 0)
                 .map(question -> questionMapper.toDto(question))
                 .collect(Collectors.toList());
     }

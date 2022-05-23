@@ -19,7 +19,7 @@ public class Question {
     @Column(name = "createdat")
     private ZonedDateTime createdAt;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "question", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public Question() {
