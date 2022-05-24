@@ -10,8 +10,10 @@ public class QuestionDto {
     private int id;
     @ApiModelProperty(value = "заголовок вопроса", example = "вопрос 1")
     private String title;
+    @ApiModelProperty(value = "полный текс вопроса", example = "текст вопрсоа 1")
     private String description;
 
+    @ApiModelProperty(value = "дата создания вопроса")
     private ZonedDateTime createdAt;
 
     private List<CommentDto> comments;

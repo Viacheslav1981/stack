@@ -1,6 +1,7 @@
 package ru.sli.stack.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.CommentRepository;
 
@@ -11,9 +12,11 @@ import java.util.List;
 public class CommentService {
 
     private CommentRepository commentRepository;
+    private QuestionService questionService;
 
-    public CommentService(CommentRepository commentRepository) {
+    public CommentService(CommentRepository commentRepository, QuestionService questionService) {
         this.commentRepository = commentRepository;
+        this.questionService = questionService;
     }
 
 
@@ -33,20 +36,12 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    /*
-    public List<Comment> getCommentsByQuestionId(int questionId) {
-        List<Comment> comments = commentRepository.findAll();
-        List<Comment> returnComments = new ArrayList<>();
-        for (int i = 0; i < comments.size(); i++) {
-           if (comments.get(i).getQuestionId() == questionId) {
-               returnComments.add(comments.get(i));
-           }
-        }
-        return returnComments;
+    @Transactional
+    public Comment create(int questionId, Comment comment) {
 
-      //  return commentRepository.getCommentsByQuestionId(questionId);
+        // comment.setQuestionId(questionId);
+        return commentRepository.save(comment);
     }
-
 
 
     /*

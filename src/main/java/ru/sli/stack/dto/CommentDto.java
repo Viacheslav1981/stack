@@ -1,6 +1,9 @@
 package ru.sli.stack.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class CommentDto {
+    @ApiModelProperty(value = "комментарий", example = "коммент 1")
     private String comment;
     private int id;
     private int questionId;

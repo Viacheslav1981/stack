@@ -3,6 +3,7 @@ package ru.sli.stack.controller;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import ru.sli.stack.dto.QuestionDto;
+import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.service.CommentMapper;
 import ru.sli.stack.service.CommentService;
@@ -140,16 +141,16 @@ public class QuestionController {
     @GetMapping
     public List<QuestionDto> findAll() {
         List<Question> questions = questionService.findAll();
-        questions.stream().sorted(((o1, o2) -> o1.getCreatedAt().compareTo(o2.getCreatedAt())))
-                .map(question -> questionMapper.toDto(question))
-                .map(q -> q.getTitle() + " " + q.getDescription())
-                //.collect(Collectors.toList());
-                .forEach(System.out::println);
-
-        // return null;
+//        questions.stream().sorted(((o1, o2) -> o1.getCreatedAt().compareTo(o2.getCreatedAt())))
+//                .map(question -> questionMapper.toDto(question))
+//                .map(q -> q.getTitle() + " " + q.getDescription())
+//                //.collect(Collectors.toList());
+//                .forEach(System.out::println);
+//
+//        // return null;
 //
         return questions.stream().sorted(Comparator.comparing(Question::getCreatedAt).reversed())
-                //.filter(question -> question.getComments().size() > 0)
+                .filter(question -> question.getComments().size() > 0)
                 .map(question -> questionMapper.toDto(question))
                 .collect(Collectors.toList());
     }
@@ -170,6 +171,11 @@ public class QuestionController {
     @DeleteMapping("/{id}")
     public void tableDelete(@PathVariable Integer id) {
         questionService.tableDelete(id);
+    }
+
+    @PostMapping("{questionId}/comments")
+    public Comment tableInsert(@RequestBody Comment comment, @PathVariable int questionId) {
+        return commentService.create(questionId, comment);
     }
 
 
