@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.ZonedDateTime;
 
 @Entity(name = "Comment")
-@Table(name = "comments")
+@Table(name = "comments", schema = "stack")
 public class Comment {
 
     @Id
@@ -14,11 +14,11 @@ public class Comment {
     @NotBlank(message = "поле не может быть пустым")
     private String comment;
 
-    @Column(name = "createdat")
+    @Column(name = "created_at")
     private ZonedDateTime createdAt;
 
-
     @ManyToOne
+    @JoinColumn(name = "question_id")
     private Question question;
 
 
@@ -35,6 +35,18 @@ public class Comment {
         this.question = question;
     }
 
+    public Comment(String comment) {
+        this.comment = comment;
+
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public ZonedDateTime getCreatedAt() {
         return createdAt;
@@ -48,13 +60,6 @@ public class Comment {
         this.question = question;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getComment() {
         return comment;
@@ -64,7 +69,7 @@ public class Comment {
         this.comment = comment;
     }
 
-    public void setCreatedAt(ZonedDateTime now) {
-
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

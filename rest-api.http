@@ -3,8 +3,8 @@ POST http://localhost:9090/questions
 Content-Type: application/json
 
 {
-  "title": "new record3",
-  "description": "testing record3"
+  "title": "второй вопрос",
+  "description": "вопрос номер 2 в новой схеме"
 }
 
 ### Send POST request with json body
@@ -12,7 +12,7 @@ POST http://localhost:9090/questions/10/comments
 Content-Type: application/json
 
 {
-  "comment": "test comment77"
+  "comment": "test comment91"
 }
 
 ### Send DELETE request

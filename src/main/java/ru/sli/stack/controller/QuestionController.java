@@ -116,21 +116,6 @@ public class QuestionController {
 //        return questionDtos;
 //    }
 
-//    @GetMapping
-//    public List<Question> findAll() {
-//        return questionService.findAll();
-//    }
-
-//
-//    @GetMapping("/{id}")
-//    @Transactional
-//    public Question findById(@PathVariable Integer id) {
-//        Question question = questionService.findById(id);
-//        // List<Comment> comments = commentService.findAll();
-//        // comments.removeIf(comment -> comment.getQuestionId() != id);
-//        return question;
-//        //return questionMapper.questionToDto(question, comments);
-//    }
 
     @GetMapping("/{id}")
     public QuestionDto findById(@PathVariable Integer id) {
@@ -141,16 +126,9 @@ public class QuestionController {
     @GetMapping
     public List<QuestionDto> findAll() {
         List<Question> questions = questionService.findAll();
-//        questions.stream().sorted(((o1, o2) -> o1.getCreatedAt().compareTo(o2.getCreatedAt())))
-//                .map(question -> questionMapper.toDto(question))
-//                .map(q -> q.getTitle() + " " + q.getDescription())
-//                //.collect(Collectors.toList());
-//                .forEach(System.out::println);
-//
-//        // return null;
-//
-        return questions.stream().sorted(Comparator.comparing(Question::getCreatedAt).reversed())
-                .filter(question -> question.getComments().size() > 0)
+
+        return questions.stream().sorted(Comparator.comparing(Question::getCreatedAt))
+                //.filter(question -> question.getComments().size() > 0)
                 .map(question -> questionMapper.toDto(question))
                 .collect(Collectors.toList());
     }
@@ -173,6 +151,13 @@ public class QuestionController {
         questionService.tableDelete(id);
     }
 
+    //    @PostMapping("{questionId}/comments")
+//    public CommentDto tableInsert(@RequestBody CommentDto commentDto, @PathVariable int questionId) {
+//        Comment comment = commentMapper.toEntity(commentDto);
+//        comment = commentService.create(questionId, comment);
+//        return commentMapper.commentToDto(comment);
+//    }
+//
     @PostMapping("{questionId}/comments")
     public Comment tableInsert(@RequestBody Comment comment, @PathVariable int questionId) {
         return commentService.create(questionId, comment);

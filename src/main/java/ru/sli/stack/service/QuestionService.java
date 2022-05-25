@@ -7,7 +7,6 @@ import ru.sli.stack.repository.QuestionRepository;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuestionService {
@@ -32,8 +31,8 @@ public class QuestionService {
         questionRepository.deleteById(id);
     }
 
-    public Optional<Question> getById(Integer id) {
-        return questionRepository.findById(id);
+    public Question getById(Integer id) {
+        return questionRepository.getById(id);
     }
 
     public List<Question> findAll() {
@@ -42,8 +41,8 @@ public class QuestionService {
 
 
     public Question findById(Integer id) {
-        // return questionRepository.findById(id).get();
-        return questionRepository.getById(id);
+        return questionRepository.findById(id).get();
+        // return questionRepository.findById(id);
     }
 
     public Question tableInsert(String title, String description) {

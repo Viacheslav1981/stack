@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.CommentRepository;
+import ru.sli.stack.repository.Question;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 
@@ -39,8 +41,13 @@ public class CommentService {
     @Transactional
     public Comment create(int questionId, Comment comment) {
 
-        // comment.setQuestionId(questionId);
+        Question question = questionService.findById(questionId);
+        comment.setQuestion(question);
+        comment.setCreatedAt(ZonedDateTime.now());
+        question.getComments().add(comment);
+
         return commentRepository.save(comment);
+
     }
 
 

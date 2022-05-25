@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="1" author="Slava">
+        <createTable tableName="questions" schemaName="stack">
+            <column name="id" type="bigint" remarks="идентификатор" autoIncrement="true">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(2000)" remarks="тема вопроса">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(2000)" remarks="вопрос полностью">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" remarks="дата создания">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" type="datetime" remarks="дата модификации">
+            </column>
+            <column name="rating" type="bigint" remarks="оценка">
+            </column>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

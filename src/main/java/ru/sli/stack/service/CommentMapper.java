@@ -8,4 +8,6 @@ import ru.sli.stack.repository.Comment;
 public interface CommentMapper {
     CommentDto commentToDto(Comment comment);
 
+    Comment toEntity(CommentDto commentDto);
+
 }
