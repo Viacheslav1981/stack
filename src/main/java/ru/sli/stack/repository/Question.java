@@ -41,8 +41,6 @@ public class Question {
         comment.setQuestion(this);
     }
 
-
-
     public List<Comment> getComments() {
         return comments;
     }

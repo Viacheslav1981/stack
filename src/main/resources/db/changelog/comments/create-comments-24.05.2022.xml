@@ -21,11 +21,21 @@
             <column name="rating" type="bigint" remarks="оценка">
             </column>
             <column name="question_id" type="bigint" remarks="ид вопроса">
-                <constraints foreignKeyName="fk_question_id" referencedTableName="questions"
-                             referencedColumnNames="id"/>
+
             </column>
 
         </createTable>
+    </changeSet>
+
+    <changeSet author="Slava" id="2">
+        <addForeignKeyConstraint baseColumnNames="question_id"
+                                 baseTableName="comments"
+                                 baseTableSchemaName="stack"
+                                 constraintName="fk_question_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="questions"
+                                 referencedTableSchemaName="stack"
+        />
     </changeSet>
 
 </databaseChangeLog>

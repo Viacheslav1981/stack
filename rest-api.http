@@ -3,20 +3,20 @@ POST http://localhost:9090/questions
 Content-Type: application/json
 
 {
-  "title": "второй вопрос",
-  "description": "вопрос номер 2 в новой схеме"
+  "title": "вопрос 5",
+  "description": "вопрос номер 5 в схеме stack"
 }
 
 ### Send POST request with json body
-POST http://localhost:9090/questions/10/comments
+POST http://localhost:9090/questions/5/comments
 Content-Type: application/json
 
 {
-  "comment": "test comment91"
+  "comment": "тест коммент 55555"
 }
 
 ### Send DELETE request
-DELETE http://localhost:9090/questions/10/comments/45
+DELETE http://localhost:9090/questions/2
 Content-Type: application/json
 
 ### Send PUT request

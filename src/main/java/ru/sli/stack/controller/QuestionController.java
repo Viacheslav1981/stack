@@ -116,13 +116,13 @@ public class QuestionController {
 //        return questionDtos;
 //    }
 
-
+    @ApiOperation("выдача вопроса")
     @GetMapping("/{id}")
     public QuestionDto findById(@PathVariable Integer id) {
         return questionMapper.toDto(questionService.findById(id));
     }
 
-    @ApiOperation("список вопросов")
+    @ApiOperation("выдача списка вопросов")
     @GetMapping
     public List<QuestionDto> findAll() {
         List<Question> questions = questionService.findAll();
@@ -134,11 +134,13 @@ public class QuestionController {
     }
 
 
+    @ApiOperation("обновление вопроса")
     @PutMapping()
     public Question tableUpdate(@RequestBody Question question) {
         return questionService.tableUpdate(question.getId(), question.getTitle(), question.getDescription());
     }
 
+    @ApiOperation("создание вопроса")
     @PostMapping()
     public QuestionDto tableInsert(@RequestBody @Valid QuestionDto questionDto) {
         Question question = questionMapper.toEntity(questionDto);
@@ -146,6 +148,7 @@ public class QuestionController {
         return questionMapper.toDto(question);
     }
 
+    @ApiOperation("удаление вопроса (с комментариями по нему)")
     @DeleteMapping("/{id}")
     public void tableDelete(@PathVariable Integer id) {
         questionService.tableDelete(id);
@@ -158,6 +161,7 @@ public class QuestionController {
 //        return commentMapper.commentToDto(comment);
 //    }
 //
+    @ApiOperation("создание комментария по вопросу")
     @PostMapping("{questionId}/comments")
     public Comment tableInsert(@RequestBody Comment comment, @PathVariable int questionId) {
         return commentService.create(questionId, comment);
