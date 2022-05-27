@@ -1,5 +1,6 @@
 package ru.sli.stack.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import ru.sli.stack.dto.QuestionDto;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 //import ru.sli.stack.service.CommentService;
 
+@Api(description = "работа с вопросами")
 @RequestMapping("/questions")
 @RestController
 public class QuestionController {
@@ -154,6 +156,7 @@ public class QuestionController {
         questionService.tableDelete(id);
     }
 
+    //@ApiOperation("создание комментария по вопросу")
     //    @PostMapping("{questionId}/comments")
 //    public CommentDto tableInsert(@RequestBody CommentDto commentDto, @PathVariable int questionId) {
 //        Comment comment = commentMapper.toEntity(commentDto);

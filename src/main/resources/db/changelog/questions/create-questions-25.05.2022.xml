@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
-    <changeSet id="3" author="Slava">
+    <changeSet id="3" author="Slava" context="common">
         <createTable tableName="questions" schemaName="stack">
             <column name="id" type="bigint" remarks="идентификатор" autoIncrement="true">
                 <constraints primaryKey="true" unique="true" nullable="false"/>
@@ -25,6 +25,46 @@
             </column>
 
         </createTable>
+
+    </changeSet>
+
+    <changeSet id="4" author="Slava" context="test">
+        <insert tableName="questions" schemaName="stack">
+            <column name="title" value="вопрос номер 1">
+            </column>
+            <column name="description" value="полный текст вопроса номер 1">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+        </insert>
+
+        <insert tableName="questions" schemaName="stack">
+            <column name="title" value="вопрос номер 2">
+            </column>
+            <column name="description" value="полный текст вопроса номер 2">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+        </insert>
+
+        <insert tableName="questions" schemaName="stack">
+            <column name="title" value="вопрос номер 3">
+            </column>
+            <column name="description" value="полный текст вопроса номер 3">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+        </insert>
+
+        <insert tableName="questions" schemaName="stack">
+            <column name="title" value="вопрос номер 4">
+            </column>
+            <column name="description" value="полный текст вопроса номер 4">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+        </insert>
+
     </changeSet>
 
 </databaseChangeLog>

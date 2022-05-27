@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
-    <changeSet id="1" author="Slava">
+    <changeSet id="1" author="Slava" context="common">
         <createTable tableName="comments" schemaName="stack">
             <column name="id" type="bigint" remarks="идентификатор" autoIncrement="true">
                 <constraints primaryKey="true" unique="true" nullable="false"/>
@@ -25,9 +25,6 @@
             </column>
 
         </createTable>
-    </changeSet>
-
-    <changeSet author="Slava" id="2">
         <addForeignKeyConstraint baseColumnNames="question_id"
                                  baseTableName="comments"
                                  baseTableSchemaName="stack"
@@ -37,5 +34,45 @@
                                  referencedTableSchemaName="stack"
         />
     </changeSet>
+
+    <changeSet id="5" author="Slava" context="test">
+        <insert tableName="comments" schemaName="stack">
+            <column name="comment" value="1 коммент к вопросу 1">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+            <column name="question_id" value="1">
+            </column>
+        </insert>
+
+        <insert tableName="comments" schemaName="stack">
+            <column name="comment" value="2 коммент к вопросу 1">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+            <column name="question_id" value="1">
+            </column>
+        </insert>
+
+        <insert tableName="comments" schemaName="stack">
+            <column name="comment" value="3 коммент к вопросу 1">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+            <column name="question_id" value="1">
+            </column>
+        </insert>
+
+        <insert tableName="comments" schemaName="stack">
+            <column name="comment" value="1 коммент к вопросу 2">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+            <column name="question_id" value="2">
+            </column>
+        </insert>
+
+    </changeSet>
+
 
 </databaseChangeLog>
