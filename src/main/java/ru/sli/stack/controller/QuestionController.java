@@ -58,13 +58,13 @@ public class QuestionController {
 
     @ApiOperation("обновление вопроса")
     @PutMapping()
-    public Question tableUpdate(@RequestBody Question question) {
-        return questionService.tableUpdate(question.getId(), question.getTitle(), question.getDescription());
+    public Question questionUpdate(@RequestBody Question question) {
+        return questionService.questionUpdate(question.getId(), question.getTitle(), question.getDescription());
     }
 
     @ApiOperation("создание вопроса")
     @PostMapping()
-    public QuestionDto tableInsert(@RequestBody @Valid QuestionDto questionDto) {
+    public QuestionDto questionCreate(@RequestBody @Valid QuestionDto questionDto) {
         Question question = questionMapper.toEntity(questionDto);
         question = questionService.create(question);
         return questionMapper.toDto(question);
@@ -72,13 +72,13 @@ public class QuestionController {
 
     @ApiOperation("удаление вопроса (с комментариями по нему)")
     @DeleteMapping("/{id}")
-    public void tableDelete(@PathVariable Integer id) {
-        questionService.tableDelete(id);
+    public void questionDelete(@PathVariable Integer id) {
+        questionService.questionDelete(id);
     }
 
     @ApiOperation("создание комментария по вопросу")
     @PostMapping("{questionId}/comments")
-    public CommentDto tableInsert(@RequestBody CommentDto commentDto, @PathVariable int questionId) {
+    public CommentDto commentCreate(@RequestBody CommentDto commentDto, @PathVariable int questionId) {
         Comment comment = commentMapper.toEntity(commentDto);
         comment = commentService.create(questionId, comment);
         return commentMapper.commentToDto(comment);
@@ -86,7 +86,7 @@ public class QuestionController {
 //
 //    @ApiOperation("создание комментария по вопросу")
 //    @PostMapping("{questionId}/comments")
-//    public Comment tableInsert(@RequestBody Comment comment, @PathVariable int questionId) {
+//    public Comment commentCreate(@RequestBody Comment comment, @PathVariable int questionId) {
 //        return commentService.create(questionId, comment);
 //    }
 

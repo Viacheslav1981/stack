@@ -12,7 +12,7 @@ POST http://localhost:9090/questions/4/comments
 Content-Type: application/json
 
 {
-  "comment": "тест коммент 44"
+  "comment": "тест коммент 4444"
 }
 
 ### Send DELETE request

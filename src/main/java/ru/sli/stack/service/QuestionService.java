@@ -22,12 +22,12 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
-    public Question tableUpdate(int id, String title, String description) {
+    public Question questionUpdate(int id, String title, String description) {
         Question question = new Question(id, title, description);
         return questionRepository.save(question);
     }
 
-    public void tableDelete(int id) {
+    public void questionDelete(int id) {
         questionRepository.deleteById(id);
     }
 
