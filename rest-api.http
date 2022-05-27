@@ -8,11 +8,11 @@ Content-Type: application/json
 }
 
 ### Send POST request with json body
-POST http://localhost:9090/questions/5/comments
+POST http://localhost:9090/questions/4/comments
 Content-Type: application/json
 
 {
-  "comment": "тест коммент 5555555"
+  "comment": "тест коммент 44"
 }
 
 ### Send DELETE request
