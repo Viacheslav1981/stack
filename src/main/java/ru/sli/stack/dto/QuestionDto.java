@@ -16,7 +16,13 @@ public class QuestionDto {
     @ApiModelProperty(value = "дата создания вопроса")
     private ZonedDateTime createdAt;
 
+    @ApiModelProperty(value = "дата редактирования вопроса")
+    private ZonedDateTime modifiedAt;
+
     private List<CommentDto> comments;
+
+    public QuestionDto() {
+    }
 
     public QuestionDto(int id, String title, String description, ZonedDateTime createdAt, List<CommentDto> comments) {
         this.title = title;
@@ -65,5 +71,13 @@ public class QuestionDto {
 
     public void setComments(List<CommentDto> comments) {
         this.comments = comments;
+    }
+
+    public ZonedDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(ZonedDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 }

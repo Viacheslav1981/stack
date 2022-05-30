@@ -15,7 +15,11 @@ public class Comment {
     private String comment;
 
     @Column(name = "created_at")
+    @Transient
     private ZonedDateTime createdAt;
+
+    @Column(name = "modified_at")
+    private ZonedDateTime modifiedAt;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
@@ -71,5 +75,13 @@ public class Comment {
 
     public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public ZonedDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(ZonedDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 }

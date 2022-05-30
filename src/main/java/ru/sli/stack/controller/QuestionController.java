@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//import ru.sli.stack.service.CommentService;
 
 @Api(description = "работа с вопросами")
 @RequestMapping("/questions")
@@ -28,7 +27,6 @@ public class QuestionController {
     private CommentMapper commentMapper;
     private QuestionMapper questionMapper;
 
-    // private CommentMapper commentMapper = new CommentMapperImpl();
 
     public QuestionController(QuestionService questionService, CommentService commentService, CommentMapper commentMapper, QuestionMapper questionMapper) {
         this.questionService = questionService;
@@ -50,45 +48,53 @@ public class QuestionController {
         List<Question> questions = questionService.findAll();
 
         return questions.stream().sorted(Comparator.comparing(Question::getCreatedAt))
-                //.filter(question -> question.getComments().size() > 0)
                 .map(question -> questionMapper.toDto(question))
                 .collect(Collectors.toList());
     }
 
-
-    @ApiOperation("обновление вопроса")
+    @ApiOperation("редактирование вопроса")
     @PutMapping()
-    public Question questionUpdate(@RequestBody Question question) {
-        return questionService.questionUpdate(question.getId(), question.getTitle(), question.getDescription());
+    public QuestionDto updateQuestion(@RequestBody @Valid QuestionDto questionDto) {
+        Question question = questionMapper.toEntity(questionDto);
+        questionService.updateQuestion(question);
+        return questionMapper.toDto(question);
     }
 
     @ApiOperation("создание вопроса")
     @PostMapping()
-    public QuestionDto questionCreate(@RequestBody @Valid QuestionDto questionDto) {
+    public QuestionDto createQuestion(@RequestBody @Valid QuestionDto questionDto) {
         Question question = questionMapper.toEntity(questionDto);
-        question = questionService.create(question);
+        question = questionService.createQuestion(question);
         return questionMapper.toDto(question);
     }
 
     @ApiOperation("удаление вопроса (с комментариями по нему)")
     @DeleteMapping("/{id}")
-    public void questionDelete(@PathVariable Integer id) {
-        questionService.questionDelete(id);
+    public void deleteQuestion(@PathVariable Integer id) {
+        questionService.deleteQuestion(id);
     }
 
     @ApiOperation("создание комментария по вопросу")
     @PostMapping("{questionId}/comments")
-    public CommentDto commentCreate(@RequestBody CommentDto commentDto, @PathVariable int questionId) {
+    public CommentDto createComment(@RequestBody CommentDto commentDto, @PathVariable int questionId) {
         Comment comment = commentMapper.toEntity(commentDto);
-        comment = commentService.create(questionId, comment);
+        comment = commentService.createComment(questionId, comment);
         return commentMapper.commentToDto(comment);
     }
-//
-//    @ApiOperation("создание комментария по вопросу")
-//    @PostMapping("{questionId}/comments")
-//    public Comment commentCreate(@RequestBody Comment comment, @PathVariable int questionId) {
-//        return commentService.create(questionId, comment);
-//    }
+
+    @ApiOperation("редактирование коммента")
+    @PutMapping("/comments")
+    public CommentDto updateComment(@RequestBody @Valid CommentDto commentDto) {
+        Comment comment = commentMapper.toEntity(commentDto);
+        commentService.updateComment(comment);
+        return commentMapper.commentToDto(comment);
+    }
+
+    @ApiOperation("удаление коммента")
+    @DeleteMapping("/comments/{commentId}")
+    public void deleteComment(@PathVariable int commentId) {
+        commentService.commentDelete(commentId);
+    }
 
 
 }
