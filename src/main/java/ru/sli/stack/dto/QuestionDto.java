@@ -7,7 +7,7 @@ import java.util.List;
 
 public class QuestionDto {
 
-    private int id;
+    private Integer id;
     @ApiModelProperty(value = "заголовок вопроса", example = "вопрос 1")
     private String title;
     @ApiModelProperty(value = "полный текс вопроса", example = "текст вопрсоа 1")
@@ -57,11 +57,11 @@ public class QuestionDto {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

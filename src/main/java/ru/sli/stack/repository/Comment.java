@@ -15,7 +15,6 @@ public class Comment {
     private String comment;
 
     @Column(name = "created_at")
-    @Transient
     private ZonedDateTime createdAt;
 
     @Column(name = "modified_at")

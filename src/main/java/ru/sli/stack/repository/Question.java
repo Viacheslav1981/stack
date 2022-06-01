@@ -17,8 +17,8 @@ public class Question {
     @NotBlank(message = "поле не может быть пустым")
     private String description;
 
+
     @Column(name = "created_at")
-    @Transient
     private ZonedDateTime createdAt;
 
     @Column(name = "modified_at")
@@ -78,11 +78,11 @@ public class Question {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

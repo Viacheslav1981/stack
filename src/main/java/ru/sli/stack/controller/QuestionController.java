@@ -2,15 +2,14 @@ package ru.sli.stack.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.sli.stack.dto.CommentDto;
 import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Comment;
 import ru.sli.stack.repository.Question;
-import ru.sli.stack.service.CommentMapper;
-import ru.sli.stack.service.CommentService;
-import ru.sli.stack.service.QuestionMapper;
-import ru.sli.stack.service.QuestionService;
+import ru.sli.stack.service.*;
 
 import javax.validation.Valid;
 import java.util.Comparator;
@@ -26,13 +25,15 @@ public class QuestionController {
     private CommentService commentService;
     private CommentMapper commentMapper;
     private QuestionMapper questionMapper;
+    private QuestionPatcher questionPatcher;
 
 
-    public QuestionController(QuestionService questionService, CommentService commentService, CommentMapper commentMapper, QuestionMapper questionMapper) {
+    public QuestionController(QuestionService questionService, CommentService commentService, CommentMapper commentMapper, QuestionMapper questionMapper, QuestionPatcher questionPatcher) {
         this.questionService = questionService;
         this.commentService = commentService;
         this.commentMapper = commentMapper;
         this.questionMapper = questionMapper;
+        this.questionPatcher = questionPatcher;
     }
 
 
@@ -52,20 +53,28 @@ public class QuestionController {
                 .collect(Collectors.toList());
     }
 
-    @ApiOperation("редактирование вопроса")
-    @PutMapping()
-    public QuestionDto updateQuestion(@RequestBody @Valid QuestionDto questionDto) {
-        Question question = questionMapper.toEntity(questionDto);
-        questionService.updateQuestion(question);
-        return questionMapper.toDto(question);
-    }
-
     @ApiOperation("создание вопроса")
     @PostMapping()
     public QuestionDto createQuestion(@RequestBody @Valid QuestionDto questionDto) {
         Question question = questionMapper.toEntity(questionDto);
         question = questionService.createQuestion(question);
         return questionMapper.toDto(question);
+    }
+
+    @ApiOperation("редактирование вопроса")
+    @PutMapping("/{questionId}")
+    public QuestionDto updateQuestion(@RequestBody @Valid QuestionDto questionDto, @PathVariable int questionId) throws NullPointerException {
+
+        try {
+
+            Question question = questionService.updateQuestion(questionDto, questionId);
+
+            return questionMapper.toDto(question);
+
+        } catch (NullPointerException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+        }
+
     }
 
     @ApiOperation("удаление вопроса (с комментариями по нему)")
