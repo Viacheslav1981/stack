@@ -66,9 +66,7 @@ public class QuestionController {
     public QuestionDto updateQuestion(@RequestBody @Valid QuestionDto questionDto, @PathVariable int questionId) throws NullPointerException {
 
         try {
-
             Question question = questionService.updateQuestion(questionDto, questionId);
-
             return questionMapper.toDto(question);
 
         } catch (NullPointerException e) {
@@ -92,12 +90,18 @@ public class QuestionController {
     }
 
     @ApiOperation("редактирование коммента")
-    @PutMapping("/comments")
-    public CommentDto updateComment(@RequestBody @Valid CommentDto commentDto) {
-        Comment comment = commentMapper.toEntity(commentDto);
-        commentService.updateComment(comment);
-        return commentMapper.commentToDto(comment);
+    @PutMapping("/comments/{commentId}")
+    public CommentDto updateComment(@RequestBody @Valid CommentDto commentDto, @PathVariable int commentId) {
+        try {
+            Comment comment = commentService.updateComment(commentDto, commentId);
+            return commentMapper.commentToDto(comment);
+
+        } catch (NullPointerException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+        }
+
     }
+
 
     @ApiOperation("удаление коммента")
     @DeleteMapping("/comments/{commentId}")

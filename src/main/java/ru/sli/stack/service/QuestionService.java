@@ -27,7 +27,6 @@ public class QuestionService {
     public Question updateQuestion(QuestionDto questionDto, int questionId) {
         Question question = findById(questionId);
         question.setModifiedAt(ZonedDateTime.now());
-
         return questionRepository.save(questionPatcher.updateQuestionFromDTO(questionDto, question));
 
     }
