@@ -8,11 +8,12 @@ Content-Type: application/json
 }
 
 ### Send POST request with json body
+
 POST http://localhost:9090/questions/4/comments
 Content-Type: application/json
 
 {
-  "comment": "тест коммент 44444444"
+  "comment": "тест коммент"
 }
 
 ### Send DELETE request
@@ -20,7 +21,7 @@ DELETE http://localhost:9090/questions/2
 Content-Type: application/json
 
 ### Send DELETE request
-DELETE http://localhost:9090/questions/comments/17
+DELETE http://localhost:9090/questions/comments/9
 Content-Type: application/json
 
 ### Send PUT request

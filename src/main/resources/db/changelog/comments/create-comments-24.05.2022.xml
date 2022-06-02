@@ -32,6 +32,7 @@
                                  referencedColumnNames="id"
                                  referencedTableName="questions"
                                  referencedTableSchemaName="stack"
+
         />
     </changeSet>
 

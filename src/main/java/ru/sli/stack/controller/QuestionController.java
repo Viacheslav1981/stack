@@ -102,7 +102,6 @@ public class QuestionController {
 
     }
 
-
     @ApiOperation("удаление коммента")
     @DeleteMapping("/comments/{commentId}")
     public void deleteComment(@PathVariable int commentId) {

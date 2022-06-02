@@ -10,7 +10,6 @@ import ru.sli.stack.repository.Question;
 import java.time.ZonedDateTime;
 import java.util.NoSuchElementException;
 
-
 @Service
 public class CommentService {
 
