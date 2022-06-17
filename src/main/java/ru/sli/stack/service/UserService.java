@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.sli.stack.repository.Role;
 import ru.sli.stack.repository.User;
 import ru.sli.stack.repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -31,11 +31,12 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        ArrayList<String> rolesList = new ArrayList<>();
+
         User user = findByUsername(username);
 
-        rolesList.add("ROLE_ADMIN");
-        rolesList.add("ROLE_USER");
+//        ArrayList<String> rolesList = new ArrayList<>();
+//        rolesList.add("ROLE_ADMIN");
+//        rolesList.add("ROLE_USER");
 
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
@@ -45,15 +46,15 @@ public class UserService implements UserDetailsService {
 //                mapRolesToAuthorities(user.getRoles()));
 
 
-        System.out.println(mapRolesToAuthorities(rolesList));
+        //  System.out.println(mapRolesToAuthorities(rolesList));
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                mapRolesToAuthorities(rolesList));
+                mapRolesToAuthorities(user.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(ArrayList<String> rolesList) {
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 
-        return rolesList.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 
     }
 

@@ -2,8 +2,9 @@ package ru.sli.stack.repository;
 
 
 import javax.persistence.*;
+import java.util.List;
 
-@Entity(name = "User")
+@Entity
 @Table(name = "users", schema = "stack")
 
 public class User {
@@ -18,8 +19,13 @@ public class User {
     @Column(name = "password")
     private String password;
 
-//    @ManyToMany
-//    private Collection<Role> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles", schema = "stack",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id", referencedColumnName = "id")
+    )
+    private List<Role> roles;
 
     public User() {
     }
@@ -48,11 +54,11 @@ public class User {
         this.password = password;
     }
 
-//    public Collection<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Collection<Role> roles) {
-//        this.roles = roles;
-//    }
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }

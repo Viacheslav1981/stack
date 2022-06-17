@@ -1,9 +1,10 @@
 package ru.sli.stack.repository;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", schema = "stack")
 
 public class Role {
 
@@ -13,6 +14,9 @@ public class Role {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
     public Role() {
     }
@@ -33,4 +37,11 @@ public class Role {
         this.name = name;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }
