@@ -7,7 +7,7 @@ import java.util.List;
 
 public class QuestionDto {
 
-    private int id;
+    private Integer id;
     @ApiModelProperty(value = "заголовок вопроса", example = "вопрос 1")
     private String title;
     @ApiModelProperty(value = "полный текс вопроса", example = "текст вопрсоа 1")
@@ -16,7 +16,13 @@ public class QuestionDto {
     @ApiModelProperty(value = "дата создания вопроса")
     private ZonedDateTime createdAt;
 
+    @ApiModelProperty(value = "дата редактирования вопроса")
+    private ZonedDateTime modifiedAt;
+
     private List<CommentDto> comments;
+
+    public QuestionDto() {
+    }
 
     public QuestionDto(int id, String title, String description, ZonedDateTime createdAt, List<CommentDto> comments) {
         this.title = title;
@@ -51,11 +57,11 @@ public class QuestionDto {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -65,5 +71,13 @@ public class QuestionDto {
 
     public void setComments(List<CommentDto> comments) {
         this.comments = comments;
+    }
+
+    public ZonedDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(ZonedDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 }

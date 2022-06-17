@@ -6,7 +6,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity(name = "Question")
-@Table(name = "questions")
+@Table(name = "questions", schema = "stack")
 public class Question {
 
     @Id
@@ -16,10 +16,15 @@ public class Question {
     private String title;
     @NotBlank(message = "поле не может быть пустым")
     private String description;
-    @Column(name = "createdat")
+
+
+    @Column(name = "created_at")
     private ZonedDateTime createdAt;
 
-    @OneToMany(mappedBy = "question", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Column(name = "modified_at")
+    private ZonedDateTime modifiedAt;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public Question() {
@@ -34,6 +39,11 @@ public class Question {
     public Question(String title, String description) {
         this.title = title;
         this.description = description;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setQuestion(this);
     }
 
     public List<Comment> getComments() {
@@ -68,11 +78,19 @@ public class Question {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public ZonedDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(ZonedDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 }

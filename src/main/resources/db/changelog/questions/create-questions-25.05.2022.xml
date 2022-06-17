@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="3" author="Slava" context="common">
+        <createTable tableName="questions" schemaName="stack">
+            <column name="id" type="bigint" remarks="идентификатор" autoIncrement="true">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(2000)" remarks="тема вопроса">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(2000)" remarks="вопрос полностью">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" remarks="дата создания">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" type="datetime" remarks="дата модификации">
+            </column>
+            <column name="rating" type="bigint" remarks="оценка">
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="4" author="Slava" context="test">
+        <insert tableName="questions" schemaName="stack">
+            <column name="title" value="вопрос номер 1">
+            </column>
+            <column name="description" value="полный текст вопроса номер 1">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+        </insert>
+
+        <insert tableName="questions" schemaName="stack">
+            <column name="title" value="вопрос номер 2">
+            </column>
+            <column name="description" value="полный текст вопроса номер 2">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+        </insert>
+
+        <insert tableName="questions" schemaName="stack">
+            <column name="title" value="вопрос номер 3">
+            </column>
+            <column name="description" value="полный текст вопроса номер 3">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+        </insert>
+
+        <insert tableName="questions" schemaName="stack">
+            <column name="title" value="вопрос номер 4">
+            </column>
+            <column name="description" value="полный текст вопроса номер 4">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

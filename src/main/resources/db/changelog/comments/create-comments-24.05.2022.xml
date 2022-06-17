@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="1" author="Slava" context="common">
+        <createTable tableName="comments" schemaName="stack">
+            <column name="id" type="bigint" remarks="идентификатор" autoIncrement="true">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="comment" type="varchar(2000)" remarks="комментарий">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" remarks="дата создания">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_at" type="datetime" remarks="дата модификации">
+            </column>
+            <column name="rating" type="bigint" remarks="оценка">
+            </column>
+            <column name="question_id" type="bigint" remarks="ид вопроса">
+
+            </column>
+
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="question_id"
+                                 baseTableName="comments"
+                                 baseTableSchemaName="stack"
+                                 constraintName="fk_question_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="questions"
+                                 referencedTableSchemaName="stack"
+
+        />
+    </changeSet>
+
+    <changeSet id="5" author="Slava" context="test">
+        <insert tableName="comments" schemaName="stack">
+            <column name="comment" value="1 коммент к вопросу 1">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+            <column name="question_id" value="1">
+            </column>
+        </insert>
+
+        <insert tableName="comments" schemaName="stack">
+            <column name="comment" value="2 коммент к вопросу 1">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+            <column name="question_id" value="1">
+            </column>
+        </insert>
+
+        <insert tableName="comments" schemaName="stack">
+            <column name="comment" value="3 коммент к вопросу 1">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+            <column name="question_id" value="1">
+            </column>
+        </insert>
+
+        <insert tableName="comments" schemaName="stack">
+            <column name="comment" value="1 коммент к вопросу 2">
+            </column>
+            <column name="created_at" value="2022-05-27T08:27:02.971Z">
+            </column>
+            <column name="question_id" value="2">
+            </column>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>
