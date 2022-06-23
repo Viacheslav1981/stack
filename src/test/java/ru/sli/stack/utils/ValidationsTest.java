@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.sli.stack.utils.Validations.validateEmail;
 
-@DisplayName("Тестирование email")
+@DisplayName("Проверка корректности ввода email")
 class ValidationsTest {
 
     @DisplayName("email не пустой")
@@ -19,19 +19,19 @@ class ValidationsTest {
     @DisplayName("email содержит @")
     @Test
     void returnsFalseWhenNoAt() {
-        assertEquals(false, validateEmail("rrr"));
+        assertEquals(false, validateEmail("rrmailru"));
     }
 
     @DisplayName("email содержит точку")
     @Test
     void returnsFalseWhenNoDot() {
-        assertEquals(false, validateEmail("rrr@"));
+        assertEquals(false, validateEmail("rr@mailru"));
     }
 
     @DisplayName("символ @ стоит левее точки")
     @Test
     void returnsFalseWhenAtNotLeftDot() {
-        assertEquals(false, validateEmail("eeeere.r@mailru"));
+        assertEquals(false, validateEmail("eeeere.r@malru"));
     }
 
     @DisplayName("между @ и точкой есть символы")
@@ -60,7 +60,7 @@ class ValidationsTest {
 
     @DisplayName("в email адресе все хорошо")
     @Test
-    void returnsTest() {
-        assertEquals(true, validateEmail("@rer.mail"));
+    void returnsTrueWhenAllCorrect() {
+        assertEquals(true, validateEmail("gamer@gmail.ru"));
     }
 }

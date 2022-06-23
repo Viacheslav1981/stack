@@ -9,12 +9,8 @@ public class Validations {
             throw new RuntimeException();
         }
 
-        if (!email.contains("@")) {
-            ret = false;
-        }
-
-        if (!email.contains(".")) {
-            ret = false;
+        if ((email.contains("@")) && (email.contains("."))) {
+            ret = true;
         }
 
         int indexAt = email.indexOf("@");
@@ -22,12 +18,24 @@ public class Validations {
 
         String[] arrayEmail = email.split("@");
 
-        if ((indexAt < indexDot)
-                && ((indexDot - indexAt) > 1)
-                && (!email.endsWith("."))
-                && (!email.startsWith("@"))
-                && (!(arrayEmail.length > 2))) {
-            ret = true;
+        if (indexAt > indexDot) {
+            ret = false;
+        }
+
+        if ((indexDot - indexAt) == 1) {
+            ret = false;
+        }
+
+        if (email.endsWith(".")) {
+            ret = false;
+        }
+
+        if (email.startsWith("@")) {
+            ret = false;
+        }
+
+        if (arrayEmail.length > 2) {
+            ret = false;
         }
 
         return ret;
