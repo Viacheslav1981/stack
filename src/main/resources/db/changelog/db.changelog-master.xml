@@ -7,5 +7,8 @@
 
     <include file="questions/create-questions-25.05.2022.xml" relativeToChangelogFile="true"/>
     <include file="comments/create-comments-24.05.2022.xml" relativeToChangelogFile="true"/>
+    <include file="security/create-roles-19.07.2022.xml" relativeToChangelogFile="true"/>
+    <include file="security/create-users-19.07.2022.xml" relativeToChangelogFile="true"/>
+    <include file="security/create-users_roles-19.07.2022.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

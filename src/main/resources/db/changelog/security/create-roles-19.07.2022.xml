@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="8" author="Slava" context="common">
+        <createTable tableName="roles" schemaName="stack">
+            <column name="id" type="bigint" remarks="идентификатор" autoIncrement="true">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)" remarks="роль">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="9" author="Slava" context="test">
+        <insert tableName="roles" schemaName="stack">
+            <column name="name" value="ROLE_USER">
+            </column>
+        </insert>
+        <insert tableName="roles" schemaName="stack">
+            <column name="name" value="ROLE_ADMIN">
+            </column>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
