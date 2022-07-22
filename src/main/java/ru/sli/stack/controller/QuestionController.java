@@ -3,6 +3,7 @@ package ru.sli.stack.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ru.sli.stack.dto.CommentDto;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @Api(description = "работа с вопросами")
 @RequestMapping("/questions")
 @RestController
+//@PreAuthorize("isAuthenticated()")
 public class QuestionController {
     private QuestionService questionService;
     private CommentService commentService;
@@ -35,7 +37,6 @@ public class QuestionController {
         this.questionMapper = questionMapper;
         this.questionPatcher = questionPatcher;
     }
-
 
     @ApiOperation("выдача вопроса")
     @GetMapping("/{id}")
@@ -55,6 +56,8 @@ public class QuestionController {
 
     @ApiOperation("создание вопроса")
     @PostMapping()
+    @PreAuthorize("isAuthenticated()")
+
     public QuestionDto createQuestion(@RequestBody @Valid QuestionDto questionDto) {
         Question question = questionMapper.toEntity(questionDto);
         question = questionService.createQuestion(question);
@@ -63,6 +66,8 @@ public class QuestionController {
 
     @ApiOperation("редактирование вопроса")
     @PutMapping("/{questionId}")
+    @PreAuthorize("isAuthenticated()")
+
     public QuestionDto updateQuestion(@RequestBody @Valid QuestionDto questionDto, @PathVariable int questionId) throws NullPointerException {
 
         try {
@@ -77,12 +82,19 @@ public class QuestionController {
 
     @ApiOperation("удаление вопроса (с комментариями по нему)")
     @DeleteMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
+    // @PreAuthorize("hasRole('ADMIN')")
+
+    // @PreAuthorize("hasRole('ADMIN')")
+
     public void deleteQuestion(@PathVariable Integer id) {
         questionService.deleteQuestion(id);
     }
 
     @ApiOperation("создание комментария по вопросу")
     @PostMapping("{questionId}/comments")
+    @PreAuthorize("isAuthenticated()")
+
     public CommentDto createComment(@RequestBody CommentDto commentDto, @PathVariable int questionId) {
         Comment comment = commentMapper.toEntity(commentDto);
         comment = commentService.createComment(questionId, comment);
@@ -91,6 +103,8 @@ public class QuestionController {
 
     @ApiOperation("редактирование коммента")
     @PutMapping("/comments/{commentId}")
+    @PreAuthorize("isAuthenticated()")
+
     public CommentDto updateComment(@RequestBody @Valid CommentDto commentDto, @PathVariable int commentId) {
         try {
             Comment comment = commentService.updateComment(commentDto, commentId);
@@ -104,6 +118,9 @@ public class QuestionController {
 
     @ApiOperation("удаление коммента")
     @DeleteMapping("/comments/{commentId}")
+    @PreAuthorize("isAuthenticated()")
+
+    //@PreAuthorize("hasRole('ADMIN')")
     public void deleteComment(@PathVariable int commentId) {
         commentService.commentDelete(commentId);
     }
