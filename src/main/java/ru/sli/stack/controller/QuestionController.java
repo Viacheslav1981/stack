@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Api(description = "работа с вопросами")
 @RequestMapping("/questions")
 @RestController
-//@PreAuthorize("isAuthenticated()")
 public class QuestionController {
     private QuestionService questionService;
     private CommentService commentService;
@@ -57,8 +56,10 @@ public class QuestionController {
     @ApiOperation("создание вопроса")
     @PostMapping()
     @PreAuthorize("isAuthenticated()")
+    // @PostAuthorize("isRememberMe()")
 
     public QuestionDto createQuestion(@RequestBody @Valid QuestionDto questionDto) {
+
         Question question = questionMapper.toEntity(questionDto);
         question = questionService.createQuestion(question);
         return questionMapper.toDto(question);

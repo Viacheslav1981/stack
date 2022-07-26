@@ -20,6 +20,12 @@ public class Comment {
     @Column(name = "modified_at")
     private ZonedDateTime modifiedAt;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "modified_by")
+    private String modifiedBy;
+
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
@@ -82,5 +88,21 @@ public class Comment {
 
     public void setModifiedAt(ZonedDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 }

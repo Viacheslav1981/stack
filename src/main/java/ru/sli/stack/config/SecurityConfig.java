@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //  .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
 //                .anyRequest()
 //                .authenticated()
-//                .and()
+                //  .and()
                 .formLogin()
                 .and()
                 .httpBasic();

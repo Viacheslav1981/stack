@@ -24,6 +24,12 @@ public class Question {
     @Column(name = "modified_at")
     private ZonedDateTime modifiedAt;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "modified_by")
+    private String modifiedBy;
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
@@ -92,5 +98,21 @@ public class Question {
 
     public void setModifiedAt(ZonedDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 }

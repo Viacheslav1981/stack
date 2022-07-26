@@ -16,6 +16,10 @@ public class QuestionDto {
     @ApiModelProperty(value = "дата создания вопроса")
     private ZonedDateTime createdAt;
 
+    private String createdBy;
+
+    private String modifiedBy;
+
     @ApiModelProperty(value = "дата редактирования вопроса")
     private ZonedDateTime modifiedAt;
 
@@ -80,4 +84,22 @@ public class QuestionDto {
     public void setModifiedAt(ZonedDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+
 }
