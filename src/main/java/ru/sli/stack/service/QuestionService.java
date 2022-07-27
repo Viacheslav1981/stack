@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.sli.stack.dto.QuestionDto;
 import ru.sli.stack.repository.Question;
 import ru.sli.stack.repository.QuestionRepository;
-import ru.sli.stack.repository.User;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -18,22 +17,21 @@ public class QuestionService {
     private QuestionRepository questionRepository;
     private QuestionPatcher questionPatcher;
     private QuestionMapper questionMapper;
-    private User user;
+
 
     public QuestionService(QuestionRepository questionRepository,
                            QuestionPatcher questionPatcher,
-                           QuestionMapper questionMapper
-    ) {
+                           QuestionMapper questionMapper) {
         this.questionRepository = questionRepository;
         this.questionPatcher = questionPatcher;
         this.questionMapper = questionMapper;
-        // this.user = user;
     }
 
     @Transactional
     public Question updateQuestion(QuestionDto questionDto, int questionId) {
         Question question = findById(questionId);
-        if (findById(questionId).getCreatedBy().equals(getUsername())) {
+        if (findById(questionId).getCreatedBy().equals(getUsername())
+                || SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString().contains("ROLE_ADMIN")) {
             question.setModifiedAt(ZonedDateTime.now());
             question.setModifiedBy(getUsername());
             question = questionRepository.save(questionPatcher.updateQuestionFromDTO(questionDto, question));
@@ -45,11 +43,16 @@ public class QuestionService {
 
     public void deleteQuestion(int id) {
 
-        System.out.println(findById(id).getCreatedBy());
-        System.out.println(getUsername());
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities().equals("[ROLE_ADMIN]"));
+//        List<GrantedAuthority> grantedAuthorityList = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+//        System.out.println(grantedAuthorityList.get(0).toString().equals("ROLE_ADMIN"));
+
+        //  System.out.println(findById(id).getCreatedBy());
+        //  System.out.println(getUsername());
+
+        //  System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString().contains("ROLE_ADMIN"));
         // System.out.println();
-        if (findById(id).getCreatedBy().equals(getUsername())) {
+        if (findById(id).getCreatedBy().equals(getUsername())
+                || SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString().contains("ROLE_ADMIN")) {
             questionRepository.deleteById(id);
         }
 
@@ -63,7 +66,6 @@ public class QuestionService {
         try {
             return questionRepository.findById(id).get();
         } catch (NoSuchElementException e) {
-            //  System.out.println("test");
             return null;
         }
     }
